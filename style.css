@@ -1,0 +1,62 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body {
+  font-family: 'Inter', sans-serif;
+  scroll-behavior: smooth;
+}
+section {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem;
+  color: white;
+  position: relative;
+}
+#portada {
+  background: url('bg_scroll_portada.jpg') no-repeat center center/cover;
+}
+.overlay {
+  background: rgba(0,0,0,0.6);
+  padding: 2rem;
+  border-radius: 10px;
+}
+.overlay h1 {
+  font-size: 6rem;
+  font-family: 'Marcellus SC', serif;
+}
+#mantra {
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  font-style: italic;
+  color: #e91e63;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+#about {
+  background: #0f0f0f;
+}
+#products {
+  background: linear-gradient(#0f0f0f, #1a001a);
+}
+#videos {
+  background: #1a001a;
+}
+#contact {
+  background: #000;
+}
+.content h2 {
+  font-family: 'Marcellus SC', serif;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+.content p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
