@@ -1,0 +1,143 @@
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  color: #111;
+  font-family: 'Georgia', serif;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.logo img {
+  width: 40px;
+  height: auto;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  text-decoration: none;
+  color: #111;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+nav a.active {
+  border-bottom: 2px solid #7c155e;
+}
+
+.hero {
+  text-align: center;
+  padding: 5rem 2rem;
+}
+
+.hero h1 {
+  font-size: 5rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.mantra {
+  font-size: 1.5rem;
+  font-style: italic;
+  color: #7c155e;
+  margin-top: 1rem;
+}
+
+footer {
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.8rem;
+  color: #888;
+}
+
+/* Products page */
+.products {
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.products h1 {
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  letter-spacing: 2px;
+}
+
+.product-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.product-card {
+  border: 1px solid #ccc;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.product-card img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.product-card h2 {
+  font-size: 1.3rem;
+  margin-top: 1rem;
+}
+
+.product-card p {
+  font-size: 1rem;
+  color: #333;
+}
+
+.product-card .btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  border: 2px solid #7c155e;
+  color: #7c155e;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.product-card .btn:hover {
+  background: #7c155e;
+  color: #fff;
+}
+
+/* About & Contact pages */
+.about, .contact {
+  padding: 4rem 2rem;
+  max-width: 800px;
+  margin: auto;
+  text-align: center;
+}
+
+.about h1, .contact h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.about p, .contact p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #333;
+}
