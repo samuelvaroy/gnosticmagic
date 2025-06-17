@@ -1,0 +1,92 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body, html {
+  scroll-behavior: smooth;
+  font-family: 'Inter', sans-serif;
+  background: #fff;
+  color: #111;
+}
+.scroll-container {
+  width: 100%;
+}
+section {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: background 2s ease;
+}
+.hero {
+  background: url('bg_scroll_portada.jpg') center/cover no-repeat;
+}
+.overlay {
+  background: rgba(0,0,0,0.5);
+  padding: 3rem;
+  border-radius: 15px;
+  text-align: center;
+}
+.logo {
+  font-family: 'Marcellus SC', serif;
+  font-size: 7rem;
+  color: white;
+  animation: fadeIn 2s ease;
+}
+#mantra {
+  margin-top: 1rem;
+  font-size: 1.8rem;
+  font-style: italic;
+  color: #e91e63;
+  transition: opacity 0.4s ease;
+  cursor: pointer;
+}
+.transition {
+  background: #fff;
+}
+.transition .circle {
+  width: 200px;
+  height: 200px;
+  background: #000;
+  border-radius: 50%;
+  animation: growCircle 3s forwards;
+}
+@keyframes growCircle {
+  0% { transform: scale(0.2); }
+  100% { transform: scale(20); }
+}
+.ritual {
+  background: #000;
+  color: white;
+  text-align: center;
+}
+.ritual h2 {
+  font-family: 'Marcellus SC', serif;
+  font-size: 3rem;
+  margin-bottom: 2rem;
+}
+.gallery {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.item {
+  background: rgba(255,255,255,0.05);
+  padding: 2rem;
+  border: 1px solid #e91e63;
+  border-radius: 12px;
+  width: 220px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #e91e63;
+}
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
