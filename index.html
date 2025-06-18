@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Gnostic - Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus+SC&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<section id="home">
+  <!-- Pinecone logo hidden initially -->
+  <img src="pinecone.png" id="pinecone" alt="Pinecone Logo">
+  <!-- Letters for title -->
+  <div id="letters">
+    <span class="letter">G</span>
+    <span class="letter">N</span>
+    <span class="letter">O</span>
+    <span class="letter">S</span>
+    <span class="letter">T</span>
+    <span class="letter">I</span>
+    <span class="letter">C</span>
+  </div>
+  <!-- Mantra -->
+  <p id="mantra">Love is magic</p>
+</section>
+
+<script>
+  // Mantra rotation
+  const phrases = ["Love is magic", "Knowledge is magic", "All is magic"];
+  let current = 0;
+  const mantra = document.getElementById("mantra");
+  setInterval(() => {
+    current = (current + 1) % phrases.length;
+    mantra.style.opacity = 0;
+    setTimeout(() => {
+      mantra.textContent = phrases[current];
+      mantra.style.opacity = 1;
+    }, 300);
+  }, 3000);
+
+  // Spiral animation on scroll
+  window.addEventListener("DOMContentLoaded", () => {
+    const letters = document.querySelectorAll(".letter");
+    const pinecone = document.getElementById("pinecone");
+    const home = document.getElementById("home");
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+    const initialRadius = Math.min(centerX, centerY) * 0.7;
+    const durationScroll = window.innerHeight; // scroll height for full effect
+
+    // Position letters initially in centered word
+    const spacing = 80;
+    letters.forEach((l, i) => {
+      const x = centerX + (i - (letters.length - 1)/2) * spacing;
+      const y = centerY;
+      l.style.left = `${x}px`;
+      l.style.top = `${y}px`;
+    });
+
+    window.addEventListener("scroll", () => {
+      const scrollY = window.scrollY;
+      let progress = Math.min(scrollY / durationScroll, 1);
+
+      if (progress < 1) {
+        // Spiral movement
+        letters.forEach((l, i) => {
+          const initialAngle = (2 * Math.PI / letters.length) * i;
+          const angle = initialAngle + 2 * Math.PI * progress;
+          const radius = initialRadius * (1 - progress);
+          const x = centerX + radius * Math.cos(angle);
+          const y = centerY + radius * Math.sin(angle);
+          l.style.transform = `translate(${x - centerX}px, ${y - centerY}px)`;
+          l.style.opacity = 1 - progress;
+        });
+        // Hide pinecone
+        pinecone.style.opacity = 0;
+      } else {
+        // Hide letters, show pinecone
+        letters.forEach(l => l.style.opacity = 0);
+        pinecone.style.opacity = 1;
+        pinecone.style.transform = "translate(-50%, -50%) scale(1)";
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
