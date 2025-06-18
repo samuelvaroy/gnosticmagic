@@ -115,6 +115,18 @@ body, html {
     transform: translateY(30px);
   }
   to {
+    .scene {
+  z-index: 10;
+  position: relative;
+}
+.transition {
+  z-index: 9;
+  position: relative;
+}
+.darkworld {
+  z-index: 1;
+}
+
     opacity: 1;
     transform: translateY(0);
   }
