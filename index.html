@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Gnostic Organic Fusion</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus+SC&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+  <h1 id="title">
+    <span class="letter l1">G</span>
+    <span class="letter l2">N</span>
+    <span class="letter l3">O</span>
+    <span class="letter l4">S</span>
+    <span class="letter l5">T</span>
+    <span class="letter l6">I</span>
+    <span class="letter l7">C</span>
+  </h1>
+  <p id="mantra">Love is magic</p>
+  <div id="vortex"></div>
+</div>
+
+<script>
+const phrases = ["Love is magic", "Knowledge is magic", "All is magic"];
+let current = 0;
+const mantra = document.getElementById("mantra");
+
+setInterval(() => {
+  current = (current + 1) % phrases.length;
+  mantra.style.opacity = 0;
+  setTimeout(() => {
+    mantra.textContent = phrases[current];
+    mantra.style.opacity = 1;
+  }, 300);
+}, 3000);
+
+window.addEventListener("scroll", () => {
+  const scrollY = window.scrollY;
+  const letters = document.querySelectorAll(".letter");
+  const vortex = document.getElementById("vortex");
+
+  if (scrollY > 100 && scrollY < 600) {
+    letters.forEach((l, i) => {
+      l.classList.add("fly");
+      l.style.transitionDelay = `${i * 0.1}s`;
+    });
+    vortex.classList.add("expand");
+  }
+});
+</script>
+
+</body>
+</html>
