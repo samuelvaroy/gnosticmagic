@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gnostic Magic Scroll</title>
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus+SC&family=Inter:wght@300;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<section class="page" id="page1">
+  <h1 id="gnostic">gnostic</h1>
+  <p id="mantra">Love is magic</p>
+</section>
+
+<section class="page" id="page2">
+  <div class="vortex"></div>
+</section>
+
+<section class="page" id="page3">
+  <div class="lightball"></div>
+</section>
+
+<script>
+const phrases = ["Love is magic", "Knowledge is magic", "All is magic"];
+let current = 0;
+const mantra = document.getElementById("mantra");
+
+function nextPhrase() {
+  current = (current + 1) % phrases.length;
+  mantra.style.opacity = 0;
+  setTimeout(() => {
+    mantra.textContent = phrases[current];
+    mantra.style.opacity = 1;
+  }, 300);
+}
+setInterval(nextPhrase, 3000);
+
+window.addEventListener("scroll", () => {
+  const scrollY = window.scrollY;
+  const height = window.innerHeight;
+
+  const vortex = document.querySelector(".vortex");
+  const lightball = document.querySelector(".lightball");
+
+  // Al llegar a la mitad de la 2ª página, empieza a expandirse el vortex
+  if (scrollY > height * 0.8 && scrollY < height * 2) {
+    const progress = Math.min((scrollY - height) / height, 1);
+    const scale = 1 + progress * 20;
+    vortex.style.transform = `scale(${scale})`;
+  }
+
+  // Al llegar a la tercera página, solo se ve la luz blanca
+  if (scrollY >= height * 2) {
+    lightball.classList.add("visible");
+  }
+});
+</script>
+
+</body>
+</html>
