@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Gnostic Fibonacci Fusion</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus+SC&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="scene">
+  <div id="letters">
+    <span class="letter">G</span>
+    <span class="letter">N</span>
+    <span class="letter">O</span>
+    <span class="letter">S</span>
+    <span class="letter">T</span>
+    <span class="letter">I</span>
+    <span class="letter">C</span>
+  </div>
+  <div id="mantra">Love is magic</div>
+  <div id="vortex"></div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const letters = Array.from(document.querySelectorAll('.letter'));
+  const mantra = document.getElementById('mantra');
+  const vortex = document.getElementById('vortex');
+  const scene = document.getElementById('scene');
+
+  const centerX = scene.clientWidth / 2;
+  const centerY = scene.clientHeight / 2;
+  const triggerHeight = window.innerHeight;
+
+  // Guardar posiciones iniciales
+  const initial = letters.map(l => {
+    const r = l.getBoundingClientRect();
+    return { x: r.left + r.width/2, y: r.top + r.height/2 };
+  });
+
+  // Calcular radio inicial máximo
+  const initialRadius = initial.reduce((max, p) => {
+    const dx = p.x - centerX, dy = p.y - centerY;
+    const dist = Math.hypot(dx, dy);
+    return Math.max(max, dist);
+  }, 0);
+
+  // Distancia de círculo: final scale = initialRadius / baseSize
+  const baseSize = 20;
+  const finalScale = initialRadius / baseSize;
+
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    let progress = scrollY / triggerHeight;
+    progress = Math.max(0, Math.min(1, progress));
+    // Exponente Fibonacci
+    const phiExp = 0.618;
+
+    letters.forEach((l, i) => {
+      const init = initial[i];
+      // Espiral de Fibonacci: ángulo y radio
+      const initialAngle = (2 * Math.PI / letters.length) * i;
+      const angle = initialAngle + progress * 2 * Math.PI;
+      const radius = initialRadius * Math.pow(1 - progress, phiExp);
+      const spiralX = centerX + radius * Math.cos(angle);
+      const spiralY = centerY + radius * Math.sin(angle);
+      // Interpolación entre posición inicial y posición en espiral
+      const curX = init.x * (1 - progress) + spiralX * progress;
+      const curY = init.y * (1 - progress) + spiralY * progress;
+      // Posicionar letra
+      l.style.position = 'absolute';
+      l.style.left = (curX - l.offsetWidth/2) + 'px';
+      l.style.top = (curY - l.offsetHeight/2) + 'px';
+    });
+
+    // Mantra opacidad
+    mantra.style.opacity = 1 - progress;
+
+    // Vortex aparece y crece con scroll
+    vortex.style.opacity = progress;
+    vortex.style.transform = `translate(-50%, -50%) scale(${progress * finalScale})`;
+  });
+});
+</script>
+</body>
+</html>
