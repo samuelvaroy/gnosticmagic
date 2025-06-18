@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gnostic Magic Vortex</title>
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus+SC&family=Inter:wght@300;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<section class="page" id="page1">
+  <h1 id="gnostic">gnostic</h1>
+  <p id="mantra">Love is magic</p>
+</section>
+
+<section class="page" id="page2">
+  <div class="vortex" id="vortex"></div>
+</section>
+
+<section class="page" id="page3">
+  <div class="lightcore" id="lightcore"></div>
+</section>
+
+<script>
+const phrases = ["Love is magic", "Knowledge is magic", "All is magic"];
+let current = 0;
+const mantra = document.getElementById("mantra");
+const gnostic = document.getElementById("gnostic");
+const vortex = document.getElementById("vortex");
+const lightcore = document.getElementById("lightcore");
+
+function nextPhrase() {
+  current = (current + 1) % phrases.length;
+  mantra.style.opacity = 0;
+  setTimeout(() => {
+    mantra.textContent = phrases[current];
+    mantra.style.opacity = 1;
+  }, 300);
+}
+setInterval(nextPhrase, 3000);
+
+window.addEventListener("scroll", () => {
+  const scrollY = window.scrollY;
+  const height = window.innerHeight;
+
+  if (scrollY > height * 0.5 && scrollY < height * 1.5) {
+    gnostic.classList.add("shrink");
+    vortex.classList.add("expand");
+  }
+
+  if (scrollY >= height * 2) {
+    lightcore.classList.add("visible");
+  }
+});
+</script>
+
+</body>
+</html>
