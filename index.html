@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GNOSTIC — Minimal & Mystic</title>
+  <meta name="description" content="GNOSTIC — tienda minimal y mística. Mindprint y El Estudio del Empalme (vídeo protegido)." />
+  <meta property="og:title" content="GNOSTIC — Minimal & Mystic" />
+  <meta property="og:description" content="Mindprint y El Estudio del Empalme — vídeo con contraseña." />
+  <meta property="og:type" content="website" />
+
+  <!-- Tipografías -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      /* Paleta */
+      --bg: #ffffff;             /* portada blanca */
+      --ink: #111111;            /* texto principal casi negro */
+      --ink-muted: #444;         /* texto secundario */
+      --line: #eaeaea;           /* líneas divisorias sutiles */
+      --accent: #ff1593;         /* magenta para la tienda */
+      --accent-ink: #ffffff;     /* texto sobre botones magenta */
+      --mindprint: #7d3cff;      /* morado de Mindprint */      /* morado de Mindprint */
+      --surface: #f7f7f8;        /* bloques suaves */
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(0,0,0,.06);
+
+      /* Tipografía */
+      --font-body: 'Inter', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, Apple Color Emoji, Segoe UI Emoji;
+      --font-display: 'Fraunces', var(--font-body);
+
+      /* Medidas */
+      --maxw: 1200px;
+      --gutter: 24px;
+    }
+
+    html { scroll-behavior: smooth; }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; color: var(--ink); background: var(--bg); font-family: var(--font-body); line-height: 1.6; font-size: 16px; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+    /* Header */
+    .site-header { position: sticky; top: 0; z-index: 1000; backdrop-filter: saturate(180%) blur(12px); background: color-mix(in oklab, white 80%, transparent); border-bottom: 1px solid var(--line); }
+    .nav { max-width: var(--maxw); margin: 0 auto; padding: 12px var(--gutter); display: flex; align-items: center; gap: 16px; }
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; }
+    .brand img { height: 28px; width: auto; display: block; }
+    .brand b { letter-spacing: 0.08em; font-weight: 700; }
+    .menu { margin-left: auto; display: flex; gap: 18px; align-items: center; }
+    .menu a { text-decoration: none; color: inherit; padding: 8px 6px; border-radius: 10px; position: relative; }
+    .menu a::after { content: ""; position: absolute; left: 10px; right: 10px; bottom: 4px; height: 2px; background: transparent; border-radius: 2px; transition: background .2s ease; }
+    .menu a:hover::after, .menu a[aria-current="page"]::after { background: var(--accent); }
+
+    /* Container */
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
+
+    /* Hero */
+    .hero { min-height: calc(100vh - 64px); display: grid; place-items: center; text-align: center; padding: 80px var(--gutter); }
+    .hero h1 { font-family: var(--font-display); font-size: clamp(42px, 8vw, 84px); line-height: 1.05; margin: 0 0 12px; letter-spacing: 0.02em; }
+    .rotator { font-size: clamp(18px, 3vw, 26px); color: var(--accent); min-height: 1.6em; transition: opacity .18s ease; font-weight: 700; letter-spacing: .02em; }
+
+    /* Stripe */
+    .stripe { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--surface); }
+    .stripe-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 32px 0; }
+    .stripe-card { padding: 18px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+    .stripe-card h3 { margin: 0 0 4px; font-size: 18px; }
+    .stripe-card p { margin: 0; color: var(--ink-muted); }
+
+    /* Secciones */
+    .section { padding: 80px 0; }
+    .section h2 { font-size: clamp(28px, 5vw, 48px); margin: 0 0 16px; }
+    .lead { color: var(--ink-muted); max-width: 72ch; }
+
+    /* Shop */
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
+    .card { grid-column: span 12; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: #fff; box-shadow: var(--shadow); display: grid; grid-template-columns: 1.5fr 1fr; }
+    .card.reverse { grid-template-columns: 1fr 1.5fr; }
+    .media { aspect-ratio: 4/3; background: #f0f0f2; display: grid; place-items: center; color: var(--ink-muted); font-weight: 600; }
+    .content { padding: 28px; display: grid; gap: 12px; align-content: center; }
+    .pill { display: inline-block; padding: 6px 10px; border-radius: 999px; font-size: 12px; background: #f2f2f3; }
+    .pill.magenta { background: color-mix(in oklab, var(--accent) 14%, white); color: #7a0a48; }
+    .pill.purple { background: color-mix(in oklab, var(--mindprint) 18%, white); color: #3e1a77; }
+
+    /* Modals */
+    dialog { border: none; border-radius: 16px; padding: 0; box-shadow: 0 20px 60px rgba(0,0,0,.25); width: min(920px, 92vw); }
+    dialog::backdrop { background: rgba(0,0,0,.45); backdrop-filter: blur(2px); }
+    .modal-body { padding: 26px; }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 18px 26px; border-bottom: 1px solid var(--line); }
+    .modal-title { font-size: 22px; margin: 0; }
+    .icon-btn { background: transparent; border: none; padding: 8px; cursor: pointer; border-radius: 10px; }
+
+    /* About */
+    .prose { max-width: 72ch; }
+    .principles { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; margin-top: 18px; }
+    .principles li { list-style: none; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+
+    /* Contact */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .input { padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; font-size: 16px; }
+    .gate { display: grid; gap: 12px; max-width: 480px; }
+    .notice { padding: 12px 14px; background: #fafafa; border: 1px dashed var(--line); border-radius: 12px; }
+
+    /* Footer */
+    footer { padding: 48px 0; border-top: 1px solid var(--line); color: var(--ink-muted); }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .card, .card.reverse { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .principles { grid-template-columns: 1fr; }
+      .stripe-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <nav class="nav" aria-label="Principal">
+      <a href="#home" class="brand">
+        <img src="Logo_Gnostic_Negro.png" alt="Gnostic logo" onerror="this.style.display='none'" />
+        <b>GNOSTIC</b>
+      </a>
+      <div class="menu">
+        <a href="#shop">Shop</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Home / Hero -->
+  <main id="home" class="wrap hero" aria-labelledby="home-title">
+    <div>
+      <!-- Logo grande opcional (se oculta si no está) -->
+      <img src="Logo_Gnostic_Negro.png" alt="Gnostic logo" style="height:96px; width:auto; margin-bottom:18px" onerror="this.style.display='none'" />
+      <h1 id="home-title" style="font-family: var(--font-display);">GNOSTIC</h1>
+      <div class="rotator" id="rotator" aria-live="polite">Love is Magic</div>
+      <!-- Sin CTAs en el hero para mantenerlo limpio -->
+    </div>
+  </main>
+
+  <!-- Stripe de orientación -->
+  <section class="stripe" aria-label="Accesos rápidos">
+    <div class="wrap stripe-grid">
+      <article class="stripe-card">
+        <h3>Shop</h3>
+        <p>Catálogo público. Productos visibles; el <strong>vídeo</strong> está protegido.</p>
+      </article>
+      <article class="stripe-card">
+        <h3>Mindprint</h3>
+        <p>Método/juego en morado. Disponible en la Shop.</p>
+      </article>
+      <article class="stripe-card">
+        <h3>El Estudio del Empalme</h3>
+        <p>Información pública. <em>El vídeo</em> requiere contraseña.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- SHOP (pública). El catálogo se muestra en modo limpio por defecto; usa ?preview=1 para ver placeholders visuales. -->
+  <section id="shop" class="wrap section" aria-labelledby="shop-title">
+    <h2 id="shop-title">Shop</h2>
+    <p class="lead">Mantenemos esta vista minimal mientras recibimos <em>fotos</em> y <em>textos finales</em>. Añade <code>?preview=1</code> a la URL para ver un mosaico con placeholders visuales.</p>
+
+    <div class="grid" id="catalog-clean" style="margin-top: 32px;">
+      <!-- Mindprint (texto visible; contenido extra con clave) -->
+      <article class="card">
+        <div class="content">
+          <span class="pill purple">Mindprint</span>
+          <h3 style="margin:0">Mindprint — método/juego</h3>
+          <p style="margin:0">Mecánica minimal, precisa y transformadora. Información pública; el acceso al <strong>contenido avanzado</strong> (manual, vídeo o materiales) requiere contraseña.</p>
+          <div style="display:flex; gap:12px; margin-top:8px; flex-wrap:wrap;">
+            <button class="btn" onclick="openMindprint()" style="background: var(--mindprint);">Ver detalles</button>
+            <button class="btn" onclick="openMindprintGate()" title="Contenido protegido de Mindprint">Contenido (con clave)</button>
+          </div>
+        </div>
+        <div class="media" aria-hidden="true" style="display:none"></div>
+      </article>
+
+      <!-- Estudio del Empalme (texto libre; vídeo con clave) -->
+      <article class="card reverse">
+        <div class="content">
+          <span class="pill magenta">Vídeo protegido</span>
+          <h3 style="margin:0">El Estudio del Empalme</h3>
+          <p style="margin:0">Descripción pública del contenido y temario. Para ver el <strong>vídeo</strong> necesitarás una contraseña (se entrega tras la compra).</p>
+          <div style="display:flex; gap:12px; margin-top:8px;">
+            <button class="btn" onclick="openEmpalmeGate()">Ver vídeo (con clave)</button>
+          </div>
+        </div>
+        <div class="media" aria-hidden="true" style="display:none"></div>
+      </article>
+    </div>
+
+    <!-- Vista previa con placeholders (solo si ?preview=1) -->
+    <div class="catalog" id="catalog-preview">
+      <div class="grid" style="margin-top: 32px;">
+        <article class="card">
+          <div class="media" style="background: color-mix(in oklab, var(--mindprint) 10%, #f3f3ff);"><span style="opacity:.7">Imagen Mindprint (placeholder)</span></div>
+          <div class="content">
+            <span class="pill purple">Mindprint</span>
+            <h3 style="margin:0">Mindprint — método/juego</h3>
+            <p style="margin:0">Mecánica minimal, precisa y transformadora.</p>
+            <div style="display:flex; gap:12px; margin-top:8px; flex-wrap:wrap;">
+              <button class="btn" onclick="openMindprint()" style="background: var(--mindprint);">Ver detalles</button>
+              <button class="btn" onclick="openMindprintGate()">Contenido (con clave)</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="card reverse">
+          <div class="content">
+            <span class="pill magenta">Vídeo protegido</span>
+            <h3 style="margin:0">El Estudio del Empalme</h3>
+            <p style="margin:0">Vídeo explicativo; información pública, vídeo con clave.</p>
+            <div style="display:flex; gap:12px; margin-top:8px;">
+              <button class="btn" style="background: var(--accent);" onclick="openEmpalmeGate()">Ver vídeo (con clave)</button>
+            </div>
+          </div>
+          <div class="media" style="background: color-mix(in oklab, var(--accent) 8%, #fdf2f8);"><span style="opacity:.7">Thumbnail vídeo (placeholder)</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="wrap section" aria-labelledby="about-title">
+    <h2 id="about-title">About</h2>
+    <div class="prose">
+      <p>Mi práctica mágica y filosófica parte de una idea simple: el conocimiento no es acumulación, es <strong>dirección</strong>. GNOSTIC existe para orientar esa dirección: menos ruido, más precisión; menos ornamento, más intención.</p>
+      <p>Trabajo con tres ejes: <strong>silencio</strong> (para escuchar la forma antes de nombrarla), <strong>símbolo</strong> (para condensar significado sin explicar de más) y <strong>ritual</strong> (para hacer repetible lo que funciona). La estética es mínima; la experiencia, nítida.</p>
+      <h3>Valores</h3>
+      <ul class="principles">
+        <li>Minimalismo místico — blanco/negro como norma, acento magenta como umbral.</li>
+        <li>Exactitud — cada palabra y cada gesto sirven a un propósito.</li>
+        <li>Accesibilidad — alto contraste, tipografía legible, fricción baja.</li>
+        <li>Respeto — contenidos protegidos, confidencialidad tras la compra.</li>
+        <li>Velocidad y claridad — sin distracciones, carga rápida.</li>
+        <li>Contenido primero — el símbolo guía, no distrae.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="wrap section" aria-labelledby="contact-title">
+    <h2 id="contact-title">Contact</h2>
+    <div class="contact-grid">
+      <form class="gate" onsubmit="return fakeSubmit(event)">
+        <div class="field">
+          <label for="name">Nombre</label>
+          <input id="name" class="input" type="text" required />
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" class="input" type="email" required />
+        </div>
+        <div class="field">
+          <label for="msg">Mensaje</label>
+          <textarea id="msg" class="input" rows="5" maxlength="800" required></textarea>
+        </div>
+        <button class="btn" type="submit">Enviar</button>
+        <div class="notice">Este formulario es de demostración (sin backend). Puedes sustituirlo por tu endpoint.</div>
+      </form>
+      <div>
+        <p class="lead">También puedes escribirnos: <a href="mailto:contact@gnostic.example">contact@gnostic.example</a></p>
+        <p class="hint">Redes sociales opcionales aquí.</p>
+        <div style="margin-top:18px"><img src="Logo_Gnostic_MoradoDegradado.png" alt="Gnostic símbolo morado" style="height:80px" onerror="this.style.display='none'"/></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap" style="display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;">
+      <small>© <span id="year"></span> GNOSTIC</small>
+      <nav aria-label="Legal" style="display:flex; gap:14px;">
+        <a href="#" aria-disabled="true" style="color:inherit; opacity:.6; text-decoration:none">Términos</a>
+        <a href="#" aria-disabled="true" style="color:inherit; opacity:.6; text-decoration:none">Privacidad</a>
+        <a href="#" aria-disabled="true" style="color:inherit; opacity:.6; text-decoration:none">Cookies</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Modals -->
+  <dialog id="modal-mindprint" aria-labelledby="modal-mindprint-title">
+    <div class="modal-header">
+      <h3 id="modal-mindprint-title" class="modal-title">Mindprint</h3>
+      <button class="icon-btn" onclick="closeModal('modal-mindprint')" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="margin-top:0">Descripción placeholder de Mindprint. Aquí irá el texto real y, si lo apruebas, una pequeña galería con tus imágenes (no incluidas por defecto).</p>
+      <ul>
+        <li>Qué obtienes — punto 1</li>
+        <li>Qué obtienes — punto 2</li>
+        <li>Qué obtienes — punto 3</li>
+      </ul>
+      <div style="display:flex; gap:12px; margin-top:16px;">
+        <button class="btn" style="background: var(--mindprint);" onclick="alert('Demo')">Solicitar acceso</button>
+        <button class="btn ghost" onclick="closeModal('modal-mindprint')">Cerrar</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Mindprint: Gate de contenido protegido -->
+  <dialog id="modal-mindprint-gate" aria-labelledby="modal-mindprint-gate-title">
+    <div class="modal-header">
+      <h3 id="modal-mindprint-gate-title" class="modal-title">Mindprint — Acceso a contenido</h3>
+      <button class="icon-btn" onclick="closeModal('modal-mindprint-gate')" aria-label="Cerrar">✕</button>
+    </div>
+    <form class="modal-body" onsubmit="return openMindprintProtected(event)">
+      <div class="field">
+        <label for="mindprint-pass">Contraseña</label>
+        <input id="mindprint-pass" class="input" type="password" required />
+      </div>
+      <button class="btn" type="submit">Desbloquear contenido</button>
+      <div class="error" id="mindprint-error" role="alert" style="margin-top:8px">Contraseña incorrecta.</div>
+      <p class="hint" style="margin-top:8px">El material avanzado está reservado para compradores.</p>
+    </form>
+  </dialog>
+
+  <dialog id="modal-empalme-gate" aria-labelledby="modal-empalme-title">
+    <div class="modal-header">
+      <h3 id="modal-empalme-title" class="modal-title">El Estudio del Empalme — Acceso</h3>
+      <button class="icon-btn" onclick="closeModal('modal-empalme-gate')" aria-label="Cerrar">✕</button>
+    </div>
+    <form class="modal-body" onsubmit="return openEmpalme(event)">
+      <div class="field">
+        <label for="empalme-pass">Contraseña</label>
+        <input id="empalme-pass" class="input" type="password" required />
+      </div>
+      <button class="btn" type="submit">Desbloquear vídeo</button>
+      <div class="error" id="empalme-error" role="alert" style="margin-top:8px">Contraseña incorrecta.</div>
+      <p class="hint" style="margin-top:8px">La reproducción y descarga están restringidas. No compartas la clave.</p>
+    </form>
+  </dialog>
+
+  <dialog id="modal-empalme-video" aria-labelledby="modal-empalme-video-title">
+    <div class="modal-header">
+      <h3 id="modal-empalme-video-title" class="modal-title">El Estudio del Empalme — Vídeo</h3>
+      <button class="icon-btn" onclick="closeModal('modal-empalme-video')" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="modal-body">
+      <video id="empalme-player" controls playsinline preload="metadata" style="width:100%; border-radius:12px; background:#000;" controlsList="nodownload">
+        <source src="video-empalme-demo.mp4" type="video/mp4" />
+        Tu navegador no soporta la reproducción de vídeo.
+      </video>
+      <p class="hint">Contenido protegido. Si necesitas transcript, se puede añadir aquí.</p>
+    </div>
+  </dialog>
+
+  <script>
+    // ===== Configuración =====
+    const CONFIG = {
+      mindprintPassword: 'THE MIND',   // <— cambia por la real
+      empalmePassword: 'GABRIEL MORENO',      // <— cambia por la real
+      rotatorPhrases: ['Love is Magic','Knowledge is Magic','All is Magic','Everything is Magic'],
+      rotatorMs: 2600
+    };
+
+    // Año footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Rotador accesible (respeta reduced motion)
+    (function phraseRotator(){
+      const el = document.getElementById('rotator');
+      const phrases = CONFIG.rotatorPhrases;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { el.textContent = phrases[0]; return; }
+      let i = 0; setInterval(()=>{ i = (i+1)%phrases.length; el.style.opacity = 0; setTimeout(()=>{ el.textContent = phrases[i]; el.style.opacity = 1; }, 180); }, CONFIG.rotatorMs);
+    })();
+
+    // Shop: modo limpio por defecto; si ?preview=1, mostrar placeholders visuales
+    (function initShop(){
+      const params = new URLSearchParams(location.search);
+      const preview = params.get('preview') === '1';
+      document.getElementById('catalog-preview').style.display = preview ? 'block' : 'none';
+      document.getElementById('catalog-clean').style.display = preview ? 'none' : 'grid';
+    })();
+
+    // Modales
+    function openMindprint(){ document.getElementById('modal-mindprint').showModal(); }
+    function openMindprintGate(){ document.getElementById('modal-mindprint-gate').showModal(); }
+    function openMindprintProtected(e){ e.preventDefault();
+      const pass = document.getElementById('mindprint-pass').value.trim();
+      const ok = pass === CONFIG.mindprintPassword;
+      document.getElementById('mindprint-error').style.display = ok ? 'none' : 'block';
+      if(ok){ closeModal('modal-mindprint-gate'); alert('Contenido protegido de Mindprint (demo). Sustituir por vídeo/descarga.'); }
+      return false;
+    }
+    function openEmpalmeGate(){ document.getElementById('modal-empalme-gate').showModal(); }
+    function openEmpalme(e){ e.preventDefault();
+      const pass = document.getElementById('empalme-pass').value.trim();
+      const ok = pass === CONFIG.empalmePassword;
+      document.getElementById('empalme-error').style.display = ok ? 'none' : 'block';
+      if(ok){ closeModal('modal-empalme-gate'); document.getElementById('modal-empalme-video').showModal(); }
+      return false;
+    }
+    function closeModal(id){ const dlg = document.getElementById(id); if(dlg && dlg.open) dlg.close(); }
+    function fakeSubmit(e){ e.preventDefault(); alert('Mensaje enviado (demo). Sustituye por tu backend.'); return false; }
+
+    // Menú activo según hash
+    function markCurrent(){
+      document.querySelectorAll('.menu a').forEach(a=>a.removeAttribute('aria-current'));
+      const id = location.hash || '#home';
+      const link = document.querySelector(`.menu a[href="${id}"]`);
+      if(link) link.setAttribute('aria-current','page');
+    }
+    window.addEventListener('hashchange', markCurrent); markCurrent();
+  </script>
+</body>
+</html>
