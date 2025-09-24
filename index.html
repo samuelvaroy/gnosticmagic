@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>GNOSTIC — GnosticMagic</title>
+<meta name="description" content="Tienda minimal y mística. Mindprint, Estudio del Doble Lift y Estudio del Empalme." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#ffffff; --ink:#111; --muted:#515151; --line:#eee;
+    --accent:#ff1593;         /* magenta tienda */
+    --accent-ink:#fff;
+    --mind:#7d3cff;           /* morado Mindprint */
+    --radius:16px; --shadow:0 10px 30px rgba(0,0,0,.06);
+    --max:1200px; --g:24px;
+    --font-body:'Inter',ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+    --font-display:'Fraunces',var(--font-body);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.6}
+  a{color:inherit}
+  /* Header */
+  .hdr{position:sticky;top:0;z-index:50;background:color-mix(in oklab, white 85%, transparent);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--line)}
+  .nav{max-width:var(--max);margin:0 auto;display:flex;align-items:center;gap:14px;padding:12px var(--g)}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+  .brand img{height:28px}
+  .menu{margin-left:auto;display:flex;gap:18px}
+  .menu a{padding:8px 6px;border-radius:10px;text-decoration:none;position:relative}
+  .menu a::after{content:"";position:absolute;left:10px;right:10px;bottom:4px;height:2px;background:transparent;border-radius:2px;transition:background .2s}
+  .menu a:hover::after,.menu a[aria-current="page"]::after{background:var(--accent)}
+  /* Layout */
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--g)}
+  .hero{min-height:calc(100vh - 64px);display:grid;place-items:center;text-align:center;padding:80px var(--g)}
+  .hero h1{font-family:var(--font-display);font-size:clamp(42px,8vw,84px);line-height:1.05;margin:0 0 10px}
+  .rot{font-weight:700;letter-spacing:.02em;font-size:clamp(18px,3vw,26px);color:var(--accent);min-height:1.6em;transition:opacity .18s}
+  .section{padding:80px 0}
+  .section h2{font-size:clamp(28px,5vw,48px);margin:0 0 12px}
+  .lead{color:var(--muted);max-width:72ch}
+  /* Cards */
+  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:24px}
+  .card{grid-column:span 12;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:var(--shadow);display:grid;grid-template-columns:1.4fr 1fr}
+  .card.reverse{grid-template-columns:1fr 1.4fr}
+  .media{aspect-ratio:4/3;background:#f3f3f5;display:grid;place-items:center;color:var(--muted);font-weight:600}
+  .content{padding:28px;display:grid;gap:12px;align-content:center}
+  .pill{display:inline-block;padding:6px 10px;border-radius:999px;font-size:12px;background:#f2f2f3}
+  .pill.magenta{background:color-mix(in oklab,var(--accent) 14%,white);color:#7a0a48}
+  .pill.purple{background:color-mix(in oklab,var(--mind) 18%,white);color:#3e1a77}
+  .btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;border:none;border-radius:999px;padding:10px 16px;font-weight:700;cursor:pointer}
+  .btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+  /* About / Contact */
+  .prose{max-width:72ch}
+  .principles{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:10px}
+  .principles li{list-style:none;border:1px solid var(--line);border-radius:12px;background:#fff;padding:12px 14px}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .input{padding:12px 14px;border:1px solid var(--line);border-radius:12px;font-size:16px;width:100%}
+  .notice{padding:12px 14px;background:#fafafa;border:1px dashed var(--line);border-radius:12px}
+  footer{padding:48px 0;border-top:1px solid var(--line);color:var(--muted)}
+  /* Modals */
+  dialog{border:none;border-radius:16px;padding:0;box-shadow:0 20px 60px rgba(0,0,0,.25);width:min(920px,92vw)}
+  dialog::backdrop{background:rgba(0,0,0,.45);backdrop-filter:blur(2px)}
+  .modal-h{display:flex;justify-content:space-between;align-items:center;padding:18px 26px;border-bottom:1px solid var(--line)}
+  .modal-title{margin:0;font-size:22px}
+  .modal-b{padding:26px}
+  .icon-btn{background:transparent;border:none;padding:8px;border-radius:10px;cursor:pointer}
+  .error{display:none;color:#b00020;font-weight:600}
+  /* Responsive */
+  @media (max-width:1024px){
+    .card,.card.reverse{grid-template-columns:1fr}
+    .principles{grid-template-columns:1fr}
+    .contact-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <nav class="nav" aria-label="principal">
+    <a class="brand" href="#home">
+      <!-- Reemplaza el src por tu logo definitivo -->
+      <img src="Logo_Gnostic_Negro.png" alt="Gnostic logo" onerror="this.style.display='none'">
+      <b>GNOSTIC</b>
+    </a>
+    <div class="menu">
+      <a href="#shop">Shop</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<main id="home" class="wrap hero" aria-labelledby="home-title">
+  <div>
+    <img src="Logo_Gnostic_Negro.png" alt="Gnostic logo" style="height:96px;margin-bottom:18px" onerror="this.style.display='none'">
+    <h1 id="home-title" style="font-family:var(--font-display)">GNOSTIC</h1>
+    <div id="rot" class="rot">Love is Magic</div>
+  </div>
+</main>
+
+<section id="shop" class="wrap section" aria-labelledby="shop-title">
+  <h2 id="shop-title">Shop</h2>
+  <p class="lead">Catálogo minimal. La información es pública; el <strong>vídeo del Empalme</strong> y el <strong>contenido avanzado de Mindprint</strong> requieren contraseña tras la compra.</p>
+
+  <div class="grid" style="margin-top:32px">
+    <!-- Mindprint -->
+    <article class="card">
+      <div class="content">
+        <span class="pill purple">Mindprint</span>
+        <h3 style="margin:0">Mindprint — método/juego</h3>
+        <p style="margin:0">Mecánica minimal y precisa. El acceso al contenido avanzado (manual/vídeo/materiales) requiere contraseña.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
+          <button class="btn" style="background:var(--mind)" onclick="openMindprint()">Ver detalles</button>
+          <button class="btn" onclick="openMindprintGate()">Contenido (con clave)</button>
+          <a class="btn" href="#" onclick="buy('mindprint');return false;">Comprar</a>
+        </div>
+      </div>
+      <div class="media" aria-hidden="true">Imagen Mindprint (añade cuando quieras)</div>
+    </article>
+
+    <!-- Estudio del Doble Lift -->
+    <article class="card reverse">
+      <div class="content">
+        <span class="pill">Estudio</span>
+        <h3 style="margin:0">Estudio del Doble Lift</h3>
+        <p style="margin:0">Tratado conciso y práctico. Entrega por email tras el pago.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
+          <a class="btn" href="#" onclick="buy('doblelift');return false;">Comprar</a>
+        </div>
+      </div>
+      <div class="media" aria-hidden="true">Imagen Doble Lift</div>
+    </article>
+
+    <!-- Estudio del Empalme -->
+    <article class="card">
+      <div class="content">
+        <span class="pill magenta">Vídeo protegido</span>
+        <h3 style="margin:0">Estudio del Empalme</h3>
+        <p style="margin:0">Descripción pública. Para ver el <strong>vídeo</strong> se te entregará una contraseña tras la compra.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
+          <button class="btn" onclick="openEmpalmeGate()">Ver vídeo (con clave)</button>
+          <a class="btn" href="#" onclick="buy('empalme');return false;">Comprar</a>
+        </div>
+      </div>
+      <div class="media" aria-hidden="true">Thumbnail vídeo Empalme</div>
+    </article>
+  </div>
+</section>
+
+<section id="about" class="wrap section" aria-labelledby="about-title">
+  <h2 id="about-title">About</h2>
+  <div class="prose">
+    <p>Mi práctica parte de una idea simple: el conocimiento no es acumulación, es <strong>dirección</strong>. GNOSTIC existe para orientar esa dirección: menos ruido, más precisión; menos ornamento, más intención.</p>
+    <p>Trabajo con tres ejes: <strong>silencio</strong> (escuchar la forma), <strong>símbolo</strong> (condensar significado) y <strong>ritual</strong> (hacer repetible lo que funciona). Estética mínima; experiencia nítida.</p>
+    <h3>Valores</h3>
+    <ul class="principles">
+      <li>Minimalismo místico — blanco/negro; magenta como umbral.</li>
+      <li>Exactitud — cada palabra y gesto sirven a un propósito.</li>
+      <li>Accesibilidad — contraste alto, tipografía legible.</li>
+      <li>Respeto — contenidos protegidos tras la compra.</li>
+      <li>Velocidad y claridad — sin distracciones.</li>
+      <li>Contenido primero — el símbolo guía, no distrae.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="contact" class="wrap section" aria-labelledby="contact-title">
+  <h2 id="contact-title">Contact</h2>
+  <div class="contact-grid">
+    <!-- TODO: Sustituye REEMPLAZA_FORMSPREE por tu endpoint real -->
+    <form class="gate" action="https://formspree.io/f/REEMPLAZA_FORMSPREE" method="POST">
+      <label>Nombre</label>
+      <input class="input" type="text" name="name" required>
+      <label>Email</label>
+      <input class="input" type="email" name="_replyto" required>
+      <label>Mensaje</label>
+      <textarea class="input" name="message" rows="5" maxlength="800" required></textarea>
+      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+      <button class="btn" type="submit">Enviar</button>
+      <div class="notice">Este formulario usa Formspree (plan gratuito). Reemplaza el endpoint para recibir correos.</div>
+    </form>
+    <div>
+      <p class="lead">También puedes escribir a <em>contact@gnosticmagic.com</em> (puede reenviar a tu Gmail con ImprovMX).</p>
+      <div style="margin-top:18px"><img src="Logo_Gnostic_MoradoDegradado.png" alt="Símbolo" style="height:80px" onerror="this.style.display='none'"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
+    <small>© <span id="year"></span> GNOSTIC</small>
+    <nav aria-label="legal" style="display:flex;gap:14px;opacity:.7">
+      <a href="#" aria-disabled="true" style="text-decoration:none;color:inherit">Términos</a>
+      <a href="#" aria-disabled="true" style="text-decoration:none;color:inherit">Privacidad</a>
+    </nav>
+  </div>
+</footer>
+
+<!-- Modales -->
+<dialog id="modal-mindprint" aria-labelledby="modal-mindprint-title">
+  <div class="modal-h">
+    <h3 id="modal-mindprint-title" class="modal-title">Mindprint</h3>
+    <button class="icon-btn" onclick="closeModal('modal-mindprint')" aria-label="Cerrar">✕</button>
+  </div>
+  <div class="modal-b">
+    <p style="margin-top:0">Descripción placeholder de Mindprint. Aquí irá el texto final y, si lo apruebas, una pequeña galería.</p>
+    <ul>
+      <li>Punto 1</li><li>Punto 2</li><li>Punto 3</li>
+    </ul>
+    <div style="display:flex;gap:12px;margin-top:12px">
+      <a class="btn" href="#" onclick="buy('mindprint');return false;">Comprar</a>
+      <button class="btn ghost" onclick="closeModal('modal-mindprint')">Cerrar</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- Gate Mindprint (contenido) -->
+<dialog id="modal-mindprint-gate" aria-labelledby="modal-mindprint-gate-title">
+  <div class="modal-h">
+    <h3 id="modal-mindprint-gate-title" class="modal-title">Mindprint — Acceso a contenido</h3>
+    <button class="icon-btn" onclick="closeModal('modal-mindprint-gate')" aria-label="Cerrar">✕</button>
+  </div>
+  <form class="modal-b" onsubmit="return openMindprintProtected(event)">
+    <label>Contraseña</label>
+    <input class="input" id="mindprint-pass" type="password" required>
+    <button class="btn" type="submit">Desbloquear</button>
+    <div id="mindprint-error" class="error">Contraseña incorrecta.</div>
+    <p class="notice" style="margin-top:10px">Material reservado para compradores.</p>
+  </form>
+</dialog>
+
+<!-- Gate Empalme -->
+<dialog id="modal-empalme-gate" aria-labelledby="modal-empalme-title">
+  <div class="modal-h">
+    <h3 id="modal-empalme-title" class="modal-title">Estudio del Empalme — Acceso vídeo</h3>
+    <button class="icon-btn" onclick="closeModal('modal-empalme-gate')" aria-label="Cerrar">✕</button>
+  </div>
+  <form class="modal-b" onsubmit="return openEmpalme(event)">
+    <label>Contraseña</label>
+    <input class="input" id="empalme-pass" type="password" required>
+    <button class="btn" type="submit">Ver vídeo</button>
+    <div id="empalme-error" class="error">Contraseña incorrecta.</div>
+    <p class="notice" style="margin-top:10px">El vídeo se entrega tras la compra.</p>
+  </form>
+</dialog>
+
+<!-- Vídeo Empalme -->
+<dialog id="modal-empalme-video" aria-labelledby="modal-empalme-video-title">
+  <div class="modal-h">
+    <h3 id="modal-empalme-video-title" class="modal-title">Estudio del Empalme — Vídeo</h3>
+    <button class="icon-btn" onclick="closeModal('modal-empalme-video')" aria-label="Cerrar">✕</button>
+  </div>
+  <div class="modal-b">
+    <!-- TODO: si usas Vimeo, pon aquí el iframe; si es HLS/YouTube, ajusto el embed -->
+    <!-- EJEMPLO VIMEO (reemplaza VIDEO_ID y token si usas privacidad):
+    <div style="aspect-ratio:16/9">
+      <iframe src="https://player.vimeo.com/video/VIDEO_ID?h=TOKEN"
+        width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen style="width:100%;height:100%;border-radius:12px"></iframe>
+    </div>
+    -->
+    <video id="empalme-player" controls playsinline preload="metadata"
+      style="width:100%;border-radius:12px;background:#000" controlsList="nodownload">
+      <source src="video-empalme-demo.mp4" type="video/mp4">
+      Tu navegador no soporta vídeo HTML5.
+    </video>
+    <p class="notice">Contenido protegido. Si necesitas transcript, lo añadimos aquí.</p>
+  </div>
+</dialog>
+
+<script>
+  // ====== CONFIG ======
+  const CONFIG = {
+    // TODO: pon tus contraseñas reales aquí
+    mindprintPassword: 'mindprint-pro',
+    empalmePassword: 'empalme-vid',
+    rotator: ['Love is Magic','Knowledge is Magic','All is Magic','Everything is Magic'],
+    rotMs: 2600
+  };
+
+  // ====== ENLACES DE PAGO (Stripe Payment Links) ======
+  // Mindprint ya está en modo PRUEBA (tu enlace real).
+  // TODO: reemplaza los otros dos cuando los tengas.
+  const LINKS = {
+    mindprint: 'https://buy.stripe.com/test_5kQbIV0ez8shfX05CN9k400',
+    doblelift: 'https://buy.stripe.com/REEMPLAZA_DOBLELIFT',
+    empalme: 'https://buy.stripe.com/REEMPLAZA_EMPALME'
+  };
+
+  // Año
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Rotador
+  (function(){
+    const el = document.getElementById('rot'), P = CONFIG.rotator;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches){ el.textContent = P[0]; return;}
+    let i=0; setInterval(()=>{ i=(i+1)%P.length; el.style.opacity=0; setTimeout(()=>{ el.textContent=P[i]; el.style.opacity=1; },180)}, CONFIG.rotMs);
+  })();
+
+  // Navegación activa
+  function mark(){ document.querySelectorAll('.menu a').forEach(a=>a.removeAttribute('aria-current')); const id=location.hash||'#home'; const a=document.querySelector('.menu a[href="'+id+'"]'); if(a) a.setAttribute('aria-current','page');}
+  addEventListener('hashchange',mark); mark();
+
+  // Comprar (redirige a Stripe)
+  function buy(key){
+    const url = LINKS[key];
+    if(!url || url.includes('REEMPLAZA')){ alert('Enlace de pago no configurado aún.'); return; }
+    location.href = url;
+  }
+
+  // Modales
+  function openMindprint(){ document.getElementById('modal-mindprint').showModal(); }
+  function openMindprintGate(){ document.getElementById('modal-mindprint-gate').showModal(); }
+  function openMindprintProtected(e){ e.preventDefault();
+    const ok = document.getElementById('mindprint-pass').value.trim() === CONFIG.mindprintPassword;
+    document.getElementById('mindprint-error').style.display = ok ? 'none':'block';
+    if(ok){ closeModal('modal-mindprint-gate'); alert('Contenido protegido de Mindprint (demo). Sustituye por enlace/descarga.'); }
+    return false;
+  }
+  function openEmpalmeGate(){ document.getElementById('modal-empalme-gate').showModal(); }
+  function openEmpalme(e){ e.preventDefault();
+    const ok = document.getElementById('empalme-pass').value.trim() === CONFIG.empalmePassword;
+    document.getElementById('empalme-error').style.display = ok ? 'none':'block';
+    if(ok){ closeModal('modal-empalme-gate'); document.getElementById('modal-empalme-video').showModal(); }
+    return false;
+  }
+  function closeModal(id){ const d=document.getElementById(id); if(d && d.open) d.close(); }
+</script>
+
+</body>
+</html>
