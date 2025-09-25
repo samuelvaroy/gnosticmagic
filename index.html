@@ -29,10 +29,12 @@
   .nav{max-width:var(--max);margin:0 auto;display:flex;align-items:center;gap:14px;padding:12px var(--g)}
   .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
   .brand img{height:28px}
-  .menu{margin-left:auto;display:flex;gap:18px}
+  .menu{margin-left:auto;display:flex;gap:18px;align-items:center}
   .menu a{padding:8px 6px;border-radius:10px;text-decoration:none;position:relative}
   .menu a::after{content:"";position:absolute;left:10px;right:10px;bottom:4px;height:2px;background:transparent;border-radius:2px;transition:background .2s}
   .menu a:hover::after,.menu a[aria-current="page"]::after{background:var(--accent)}
+  .cart-btn{position:relative; display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border:1px solid var(--line); border-radius:999px; background:#fff; cursor:pointer}
+  .cart-count{position:absolute; top:-6px; right:-6px; background:var(--accent); color:#fff; font-weight:700; font-size:12px; border-radius:999px; padding:2px 6px; min-width:22px; text-align:center}
   /* Layout */
   .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--g)}
   .hero{min-height:calc(100vh - 64px);display:grid;place-items:center;text-align:center;padding:80px var(--g)}
@@ -68,6 +70,13 @@
   .modal-b{padding:26px}
   .icon-btn{background:transparent;border:none;padding:8px;border-radius:10px;cursor:pointer}
   .error{display:none;color:#b00020;font-weight:600}
+  /* Cart styles */
+  .cart-list{list-style:none; margin:0; padding:0; display:grid; gap:10px}
+  .cart-item{display:grid; grid-template-columns: 1fr auto auto; gap:10px; align-items:center; border:1px solid var(--line); border-radius:12px; padding:10px 12px; background:#fff}
+  .qty{display:inline-flex; align-items:center; gap:8px}
+  .qty button{border:1px solid var(--line); background:#fff; border-radius:8px; padding:4px 8px; cursor:pointer}
+  .cart-footer{display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:14px}
+  .total{font-weight:800}
   /* Responsive */
   @media (max-width:1024px){
     .card,.card.reverse{grid-template-columns:1fr}
@@ -81,7 +90,6 @@
 <header class="hdr">
   <nav class="nav" aria-label="principal">
     <a class="brand" href="#home">
-      <!-- Reemplaza el src por tu logo definitivo -->
       <img src="Logo_Gnostic_Negro.png" alt="Gnostic logo" onerror="this.style.display='none'">
       <b>GNOSTIC</b>
     </a>
@@ -89,6 +97,11 @@
       <a href="#shop">Shop</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
+      <!-- Cart button -->
+      <button class="cart-btn" onclick="openCart()" aria-label="Abrir cesta">
+        🛒 Cesta
+        <span id="cart-count" class="cart-count" hidden>0</span>
+      </button>
     </div>
   </nav>
 </header>
@@ -115,7 +128,7 @@
         <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
           <button class="btn" style="background:var(--mind)" onclick="openMindprint()">Ver detalles</button>
           <button class="btn" onclick="openMindprintGate()">Contenido (con clave)</button>
-          <a class="btn" href="#" onclick="buy('mindprint');return false;">Comprar</a>
+          <button class="btn" onclick="addToCart('mindprint')">Añadir a la cesta</button>
         </div>
       </div>
       <div class="media" aria-hidden="true">Imagen Mindprint (añade cuando quieras)</div>
@@ -128,7 +141,7 @@
         <h3 style="margin:0">Estudio del Doble Lift</h3>
         <p style="margin:0">Tratado conciso y práctico. Entrega por email tras el pago.</p>
         <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
-          <a class="btn" href="#" onclick="buy('doblelift');return false;">Comprar</a>
+          <button class="btn" onclick="addToCart('doblelift')">Añadir a la cesta</button>
         </div>
       </div>
       <div class="media" aria-hidden="true">Imagen Doble Lift</div>
@@ -142,7 +155,7 @@
         <p style="margin:0">Descripción pública. Para ver el <strong>vídeo</strong> se te entregará una contraseña tras la compra.</p>
         <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
           <button class="btn" onclick="openEmpalmeGate()">Ver vídeo (con clave)</button>
-          <a class="btn" href="#" onclick="buy('empalme');return false;">Comprar</a>
+          <button class="btn" onclick="addToCart('empalme')">Añadir a la cesta</button>
         </div>
       </div>
       <div class="media" aria-hidden="true">Thumbnail vídeo Empalme</div>
@@ -199,7 +212,7 @@
   </div>
 </footer>
 
-<!-- Modales -->
+<!-- Modales existentes -->
 <dialog id="modal-mindprint" aria-labelledby="modal-mindprint-title">
   <div class="modal-h">
     <h3 id="modal-mindprint-title" class="modal-title">Mindprint</h3>
@@ -211,13 +224,12 @@
       <li>Punto 1</li><li>Punto 2</li><li>Punto 3</li>
     </ul>
     <div style="display:flex;gap:12px;margin-top:12px">
-      <a class="btn" href="#" onclick="buy('mindprint');return false;">Comprar</a>
+      <button class="btn" onclick="addToCart('mindprint')">Añadir a la cesta</button>
       <button class="btn ghost" onclick="closeModal('modal-mindprint')">Cerrar</button>
     </div>
   </div>
 </dialog>
 
-<!-- Gate Mindprint (contenido) -->
 <dialog id="modal-mindprint-gate" aria-labelledby="modal-mindprint-gate-title">
   <div class="modal-h">
     <h3 id="modal-mindprint-gate-title" class="modal-title">Mindprint — Acceso a contenido</h3>
@@ -232,7 +244,6 @@
   </form>
 </dialog>
 
-<!-- Gate Empalme -->
 <dialog id="modal-empalme-gate" aria-labelledby="modal-empalme-title">
   <div class="modal-h">
     <h3 id="modal-empalme-title" class="modal-title">Estudio del Empalme — Acceso vídeo</h3>
@@ -247,21 +258,12 @@
   </form>
 </dialog>
 
-<!-- Vídeo Empalme -->
 <dialog id="modal-empalme-video" aria-labelledby="modal-empalme-video-title">
   <div class="modal-h">
     <h3 id="modal-empalme-video-title" class="modal-title">Estudio del Empalme — Vídeo</h3>
     <button class="icon-btn" onclick="closeModal('modal-empalme-video')" aria-label="Cerrar">✕</button>
   </div>
   <div class="modal-b">
-    <!-- TODO: si usas Vimeo, pon aquí el iframe; si es HLS/YouTube, ajusto el embed -->
-    <!-- EJEMPLO VIMEO (reemplaza VIDEO_ID y token si usas privacidad):
-    <div style="aspect-ratio:16/9">
-      <iframe src="https://player.vimeo.com/video/VIDEO_ID?h=TOKEN"
-        width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen; picture-in-picture"
-        allowfullscreen style="width:100%;height:100%;border-radius:12px"></iframe>
-    </div>
-    -->
     <video id="empalme-player" controls playsinline preload="metadata"
       style="width:100%;border-radius:12px;background:#000" controlsList="nodownload">
       <source src="video-empalme-demo.mp4" type="video/mp4">
@@ -271,24 +273,46 @@
   </div>
 </dialog>
 
+<!-- CARRITO -->
+<dialog id="cart-dialog" aria-labelledby="cart-title">
+  <div class="modal-h">
+    <h3 id="cart-title" class="modal-title">Tu cesta</h3>
+    <button class="icon-btn" onclick="closeModal('cart-dialog')" aria-label="Cerrar">✕</button>
+  </div>
+  <div class="modal-b">
+    <ul id="cart-list" class="cart-list"></ul>
+    <div class="cart-footer">
+      <div class="total">Total: <span id="cart-total">0 €</span></div>
+      <div style="display:flex; gap:10px;">
+        <button class="btn ghost" onclick="clearCart()">Vaciar</button>
+        <button class="btn" onclick="checkout()">Pagar</button>
+      </div>
+    </div>
+    <p class="notice" style="margin-top:10px">El pago se realiza de forma segura en Stripe.</p>
+  </div>
+</dialog>
+
 <script>
   // ====== CONFIG ======
   const CONFIG = {
-    // TODO: pon tus contraseñas reales aquí
     mindprintPassword: 'mindprint-pro',
     empalmePassword: 'empalme-vid',
     rotator: ['Love is Magic','Knowledge is Magic','All is Magic','Everything is Magic'],
     rotMs: 2600
   };
 
-  // ====== ENLACES DE PAGO (Stripe Payment Links) ======
-  // Mindprint ya está en modo PRUEBA (tu enlace real).
-  // TODO: reemplaza los otros dos cuando los tengas.
-  const LINKS = {
-    mindprint: 'https://buy.stripe.com/test_5kQbIV0ez8shfX05CN9k400',
-    doblelift: 'https://buy.stripe.com/REEMPLAZA_DOBLELIFT',
-    empalme: 'https://buy.stripe.com/REEMPLAZA_EMPALME'
+  // ====== WORKER (cambiar si tu URL fuera otra) ======
+  const WORKER_URL = 'https://gnostic-checkout.arctisamuel.workers.dev/';
+
+  // ====== PRODUCTOS (IDs de precio y precio para mostrar) ======
+  const PRODUCTS = {
+    mindprint:  { name:'Mindprint', priceId:'price_1SAZhY8n9nUoqs4QXBodARDk', eur:40 },
+    doblelift:  { name:'Estudio del Doble Lift', priceId:'price_1SBAqw8n9nUoqs4QhnjLpED7', eur:14 },
+    empalme:    { name:'Estudio del Empalme',    priceId:'price_1SAZiV8n9nUoqs4QaVmTsn5E', eur:14 }
   };
+
+  // ====== UTILIDADES ======
+  const fmt = n => new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n);
 
   // Año
   document.getElementById('year').textContent = new Date().getFullYear();
@@ -304,20 +328,13 @@
   function mark(){ document.querySelectorAll('.menu a').forEach(a=>a.removeAttribute('aria-current')); const id=location.hash||'#home'; const a=document.querySelector('.menu a[href="'+id+'"]'); if(a) a.setAttribute('aria-current','page');}
   addEventListener('hashchange',mark); mark();
 
-  // Comprar (redirige a Stripe)
-  function buy(key){
-    const url = LINKS[key];
-    if(!url || url.includes('REEMPLAZA')){ alert('Enlace de pago no configurado aún.'); return; }
-    location.href = url;
-  }
-
-  // Modales
+  // ====== MODALES EXISTENTES ======
   function openMindprint(){ document.getElementById('modal-mindprint').showModal(); }
   function openMindprintGate(){ document.getElementById('modal-mindprint-gate').showModal(); }
   function openMindprintProtected(e){ e.preventDefault();
     const ok = document.getElementById('mindprint-pass').value.trim() === CONFIG.mindprintPassword;
     document.getElementById('mindprint-error').style.display = ok ? 'none':'block';
-    if(ok){ closeModal('modal-mindprint-gate'); alert('Contenido protegido de Mindprint (demo). Sustituye por enlace/descarga.'); }
+    if(ok){ closeModal('modal-mindprint-gate'); alert('Contenido protegido de Mindprint (demo).'); }
     return false;
   }
   function openEmpalmeGate(){ document.getElementById('modal-empalme-gate').showModal(); }
@@ -328,6 +345,107 @@
     return false;
   }
   function closeModal(id){ const d=document.getElementById(id); if(d && d.open) d.close(); }
+
+  // ====== CARRITO ======
+  const CART_KEY = 'gnosticCart';
+  let cart = loadCart();
+  renderCartIcon();
+
+  function loadCart(){
+    try{ return JSON.parse(localStorage.getItem(CART_KEY)) || []; }catch(_){ return []; }
+  }
+  function saveCart(){
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    renderCartIcon();
+  }
+  function renderCartIcon(){
+    const n = cart.reduce((a,x)=>a+x.qty,0);
+    const b = document.getElementById('cart-count');
+    if(n>0){ b.hidden=false; b.textContent=n; } else { b.hidden=true; }
+  }
+  function openCart(){
+    renderCartList();
+    document.getElementById('cart-dialog').showModal();
+  }
+  function clearCart(){
+    cart = [];
+    saveCart();
+    renderCartList();
+  }
+  function addToCart(key){
+    const item = PRODUCTS[key];
+    if(!item){ alert('Producto no disponible.'); return; }
+    const found = cart.find(x=>x.key===key);
+    if(found) found.qty += 1;
+    else cart.push({ key, qty:1 });
+    saveCart();
+    renderCartList();
+    // feedback rápido
+    document.querySelector('.cart-btn').animate([{transform:'scale(1)'},{transform:'scale(1.06)'},{transform:'scale(1)'}],{duration:300});
+  }
+  function decQty(i){
+    cart[i].qty = Math.max(1, cart[i].qty-1);
+    saveCart(); renderCartList();
+  }
+  function incQty(i){
+    cart[i].qty += 1;
+    saveCart(); renderCartList();
+  }
+  function removeItem(i){
+    cart.splice(i,1); saveCart(); renderCartList();
+  }
+  function renderCartList(){
+    const ul = document.getElementById('cart-list');
+    ul.innerHTML = '';
+    let total = 0;
+    if(cart.length===0){
+      ul.innerHTML = '<li class="cart-item" style="justify-content:center">Tu cesta está vacía.</li>';
+    }else{
+      cart.forEach((row, i)=>{
+        const p = PRODUCTS[row.key];
+        const line = p.eur * row.qty; total += line;
+        const li = document.createElement('li');
+        li.className='cart-item';
+        li.innerHTML = `
+          <div><strong>${p.name}</strong><br><small>${fmt(p.eur)} × ${row.qty}</small></div>
+          <div class="qty">
+            <button aria-label="Restar" onclick="decQty(${i})">−</button>
+            <span>${row.qty}</span>
+            <button aria-label="Sumar" onclick="incQty(${i})">+</button>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px">
+            <strong>${fmt(line)}</strong>
+            <button class="icon-btn" aria-label="Quitar" onclick="removeItem(${i})">🗑️</button>
+          </div>
+        `;
+        ul.appendChild(li);
+      });
+    }
+    document.getElementById('cart-total').textContent = fmt(total);
+  }
+
+  // ====== CHECKOUT (Stripe a través del Worker) ======
+  async function checkout(){
+    if(cart.length===0){ alert('Tu cesta está vacía.'); return; }
+    // Prepara items con los Price IDs de Stripe
+    const items = cart.map(row => ({ price: PRODUCTS[row.key].priceId, quantity: row.qty }));
+    try{
+      const res = await fetch(WORKER_URL, {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ items })
+      });
+      const data = await res.json();
+      if(data?.url){
+        window.location.href = data.url; // redirige a Stripe Checkout
+      }else{
+        alert('Error al crear el pago: ' + (data?.error || 'desconocido'));
+      }
+    }catch(err){
+      alert('No se pudo conectar con el servidor de pago.');
+      console.error(err);
+    }
+  }
 </script>
 
 </body>
