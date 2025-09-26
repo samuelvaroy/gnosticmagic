@@ -325,14 +325,23 @@
     rotMs: 2600
   };
 
-  // ====== WORKER (cambiar si tu URL fuera otra) ======
-  const WORKER_URL = 'https://gnostic-checkout.arctisamuel.workers.dev/';
+  // ====== WORKER (cuando lo tengas listo) ======
+  const WORKER_URL = 'https://gnostic-checkout.arctisamuel.workers.dev/'; // si falla, usamos Payment Links
 
   // ====== PRODUCTOS (IDs de precio y precio para mostrar) ======
+  // Estos son tus PRICE IDs (de prueba ahora mismo). Cuando pases a LIVE, cámbialos por los live.
   const PRODUCTS = {
-    mindprint:  { name:'Mindprint', priceId:'price_1SAZhY8n9nUoqs4QXBodARDk', eur:40 },
-    doblelift:  { name:'Estudio del Doble Lift', priceId:'price_1SBAqw8n9nUoqs4QhnjLpED7', eur:14 },
-    empalme:    { name:'Estudio del Empalme',    priceId:'price_1SAZiV8n9nUoqs4QaVmTsn5E', eur:14 }
+    mindprint:  { name:'Mindprint',               priceId:'price_1SAZhY8n9nUoqs4QXBodARDk', eur:40 },
+    doblelift:  { name:'Estudio del Doble Lift',  priceId:'price_1SBAqw8n9nUoqs4QhnjLpED7', eur:14 },
+    empalme:    { name:'Estudio del Empalme',     priceId:'price_1SAZiV8n9nUoqs4QaVmTsn5E', eur:14 }
+  };
+
+  // ====== PAYMENT LINKS (Plan B sin Worker / demo) ======
+  // Mindprint ya me diste el enlace de prueba. Sustituye los otros dos cuando los crees.
+  const PAYMENT_LINKS = {
+    mindprint: 'https://buy.stripe.com/test_5kQbIV0ez8shfX05CN9k400',
+    doblelift: 'https://buy.stripe.com/REEMPLAZA_DOBLELIFT_LINK',
+    empalme:   'https://buy.stripe.com/REEMPLAZA_EMPALME_LINK'
   };
 
   // ====== UTILIDADES ======
@@ -448,27 +457,54 @@
     document.getElementById('cart-total').textContent = fmt(total);
   }
 
-  // ====== CHECKOUT (Stripe a través del Worker) ======
+  // ====== CHECKOUT ======
   async function checkout(){
     if(cart.length===0){ alert('Tu cesta está vacía.'); return; }
-    // Prepara items con los Price IDs de Stripe
-    const items = cart.map(row => ({ price: PRODUCTS[row.key].priceId, quantity: row.qty }));
-    try{
-      const res = await fetch(WORKER_URL, {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({ items })
-      });
-      const data = await res.json();
-      if(data?.url){
-        window.location.href = data.url; // redirige a Stripe Checkout
-      }else{
-        alert('Error al crear el pago: ' + (data?.error || 'desconocido'));
+
+    // Si solo hay 1 producto en la cesta y tenemos Payment Link, podemos ir por "Plan B" directo
+    if (cart.length === 1) {
+      const only = cart[0];
+      const link = PAYMENT_LINKS[only.key];
+      // Si no hay Worker o falla luego, usaremos esto como fallback.
+      // Intentamos primero el Worker (Plan A). Si falla, redirigimos a Payment Link (Plan B).
+      try {
+        await tryWorkerCheckout();
+      } catch (e) {
+        if (link && !link.includes('REEMPLAZA')) {
+          if (confirm('El pago centralizado no está listo aún. ¿Quieres pagar este producto ahora con Stripe (Payment Link)?')) {
+            window.location.href = link;
+            return;
+          }
+        }
+        alert('No se pudo iniciar el pago. Vuelve a intentarlo en unos minutos.');
       }
-    }catch(err){
-      alert('No se pudo conectar con el servidor de pago.');
-      console.error(err);
+      return;
     }
+
+    // Si hay varios productos, intentamos Worker; si falla, ofrecemos pagar por separado
+    try {
+      await tryWorkerCheckout();
+    } catch (e) {
+      let msg = 'El pago con varios productos requiere el checkout centralizado (Worker). Aún no está listo.\n\nPuedes pagar cada producto por separado ahora:';
+      cart.forEach(row=>{
+        const link = PAYMENT_LINKS[row.key];
+        msg += `\n- ${PRODUCTS[row.key].name}: ${link && !link.includes('REEMPLAZA') ? link : '(falta enlace)'}`;
+      });
+      alert(msg);
+    }
+  }
+
+  async function tryWorkerCheckout(){
+    const items = cart.map(row => ({ price: PRODUCTS[row.key].priceId, quantity: row.qty }));
+    const res = await fetch(WORKER_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ items })
+    });
+    if(!res.ok) throw new Error('worker-failed');
+    const data = await res.json();
+    if(data?.url){ window.location.href = data.url; }
+    else{ throw new Error('no-url'); }
   }
 
   // ====== TOASTS (avisos) + manejo de retorno ======
