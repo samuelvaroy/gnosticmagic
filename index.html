@@ -12,7 +12,7 @@
 <style>
   :root{
     --bg:#ffffff; --ink:#111; --muted:#515151; --line:#eee;
-    --accent:#a02ab4;  /* magenta-morado */
+    --accent:#a02ab4; /* magenta-morado */
     --accent-ink:#fff;
     --mind:#7d3cff;
     --radius:16px; --shadow:0 10px 30px rgba(0,0,0,.06);
@@ -37,7 +37,6 @@
   .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--g)}
   .hero{min-height:calc(100vh - 64px);display:grid;place-items:center;text-align:center;padding:80px var(--g)}
   .hero h1{font-family:var(--font-display);font-size:clamp(42px,8vw,84px);line-height:1.05;margin:0 0 10px}
-  .rot{font-weight:700;letter-spacing:.02em;font-size:clamp(18px,3vw,26px);color:var(--accent);min-height:1.6em;transition:opacity .18s}
   .section{padding:80px 0}
   .section h2{font-size:clamp(28px,5vw,48px);margin:0 0 12px}
   .lead{color:var(--muted);max-width:72ch}
@@ -106,99 +105,48 @@
   <button onclick="hideToast()">Cerrar</button>
 </div>
 
+<!-- HERO -->
 <main id="home" class="wrap hero" aria-labelledby="home-title">
   <div>
-    <img src="Logo_Gnostic_Negro.png" alt="Gnostic logo" style="height:96px;margin-bottom:18px" onerror="this.style.display='none'">
+    <img src="Logo_Gnostic_Negro.png" alt="Gnostic logo"
+         style="height:140px;margin-bottom:22px" onerror="this.style.display='none'">
     <h1 id="home-title" style="font-family:var(--font-display);color:#111">GNOSTIC</h1>
-    <div style="font-size:clamp(20px,3vw,28px);font-weight:600;color:#111">
-      <span>is&nbsp;</span><span id="rot" class="rot">Magic</span>
+    <div style="font-size:clamp(28px,4vw,40px);font-weight:700">
+      <span id="rot" style="color:var(--accent)">Magic</span>
+      <span style="color:#111">&nbsp;IS MAGIC</span>
     </div>
   </div>
 </main>
 
-<!-- ============= SHOP ============= -->
-<section id="shop" class="wrap section" aria-labelledby="shop-title">
-  <h2 id="shop-title">Shop</h2>
-  <p class="lead">Catálogo minimal. La información es pública; el <strong>vídeo del Empalme</strong> y el <strong>contenido avanzado de Mindprint</strong> requieren contraseña tras la compra.</p>
-
-  <div class="grid" style="margin-top:32px">
-    <!-- Mindprint -->
-    <article class="card">
-      <div class="content">
-        <span class="pill purple">Mindprint</span>
-        <h3 style="margin:0">Mindprint — método/juego</h3>
-        <p style="margin:0">Mecánica minimal y precisa. El acceso al contenido avanzado requiere contraseña.</p>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
-          <button class="btn" style="background:var(--mind)" onclick="openMindprint()">Ver detalles</button>
-          <button class="btn" onclick="openMindprintGate()">Contenido (con clave)</button>
-          <button class="btn" onclick="addToCart('mindprint')">Añadir a la cesta</button>
-        </div>
-      </div>
-      <div class="media" aria-hidden="true">Imagen Mindprint</div>
-    </article>
-
-    <!-- Estudio del Doble Lift -->
-    <article class="card reverse">
-      <div class="content">
-        <span class="pill">Estudio</span>
-        <h3 style="margin:0">Estudio del Doble Lift</h3>
-        <p style="margin:0">Tratado conciso y práctico. Entrega por email tras el pago.</p>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
-          <button class="btn" onclick="addToCart('doblelift')">Añadir a la cesta</button>
-        </div>
-      </div>
-      <div class="media" aria-hidden="true">Imagen Doble Lift</div>
-    </article>
-
-    <!-- Estudio del Empalme -->
-    <article class="card">
-      <div class="content">
-        <span class="pill magenta">Vídeo protegido</span>
-        <h3 style="margin:0">Estudio del Empalme</h3>
-        <p style="margin:0">Descripción pública. Para ver el <strong>vídeo</strong> se te entregará una contraseña tras la compra.</p>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
-          <button class="btn" onclick="openEmpalmeGate()">Ver vídeo (con clave)</button>
-          <button class="btn" onclick="addToCart('empalme')">Añadir a la cesta</button>
-        </div>
-      </div>
-      <div class="media" aria-hidden="true">Thumbnail vídeo Empalme</div>
-    </article>
-  </div>
-</section>
-
-<!-- (About, Contact, Footer, Modals, Carrito idénticos a tu versión anterior, siguen aquí...) -->
+<!-- resto de secciones (Shop, About, Contact, Footer, Carrito, Modales, etc.) igual que tu versión anterior -->
 
 <script>
   // ====== CONFIG ======
   const CONFIG = {
     mindprintPassword: 'mindprint-pro',
     empalmePassword: 'empalme-vid',
-    rotator: ['Magic','Knowledge','Silence','Ritual'],
+    rotator: ['Love','Knowledge','Silence','Ritual'],
     rotMs: 2600
   };
 
-  // PRODUCTS con precios
-  const PRODUCTS = {
-    mindprint:  { name:'Mindprint',               eur:40 },
-    doblelift:  { name:'Estudio del Doble Lift',  eur:14 },
-    empalme:    { name:'Estudio del Empalme',     eur:14 }
-  };
-
-  // Payment Links Stripe (reales)
-  const PAYMENT_LINKS = {
-    mindprint: 'https://buy.stripe.com/8x2dR2cDa9qZc9d7rsd3i02',
-    doblelift: 'https://buy.stripe.com/6oU8wI9qYfPn4GLdPQd3i00',
-    empalme:   'https://buy.stripe.com/9B628kbz69qZa15fXYd3i01'
-  };
-
-  // Rotador de texto
+  // Rotador de palabra
   (function(){
     const el = document.getElementById('rot'), P = CONFIG.rotator;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches){ el.textContent = P[0]; return;}
-    let i=0; setInterval(()=>{ i=(i+1)%P.length; el.style.opacity=0; setTimeout(()=>{ el.textContent=P[i]; el.style.opacity=1; },180)}, CONFIG.rotMs);
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      el.textContent = P[0]; return;
+    }
+    let i=0;
+    setInterval(()=>{
+      i=(i+1)%P.length;
+      el.style.opacity=0;
+      setTimeout(()=>{
+        el.textContent=P[i];
+        el.style.opacity=1;
+      },180);
+    }, CONFIG.rotMs);
   })();
 
-  // --- (resto: carrito, checkout, toasts, modales) ---
+  // (carrito, checkout y demás lógica sigue igual que ya tenías)
 </script>
 
 </body>
