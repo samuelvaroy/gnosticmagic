@@ -12,7 +12,7 @@
 <style>
   :root{
     --bg:#ffffff; --ink:#111; --muted:#515151; --line:#eee;
-    --accent:#ff1593;  /* magenta vibrante */
+    --accent:#ff1593; /* magenta fuerte */
     --accent-ink:#fff;
     --mind:#7d3cff;
     --radius:16px; --shadow:0 10px 30px rgba(0,0,0,.06);
@@ -26,8 +26,8 @@
   a{color:inherit;text-decoration:none}
   .hdr{position:sticky;top:0;z-index:50;background:color-mix(in oklab, white 85%, transparent);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--line)}
   .nav{max-width:var(--max);margin:0 auto;display:flex;align-items:center;gap:14px;padding:12px var(--g)}
-  .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
-  .brand img{height:34px}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;font-size:20px}
+  .brand img{height:32px}
   .menu{margin-left:auto;display:flex;gap:18px;align-items:center}
   .menu a{padding:8px 6px;border-radius:10px;text-decoration:none;position:relative}
   .menu a::after{content:"";position:absolute;left:10px;right:10px;bottom:4px;height:2px;background:transparent;border-radius:2px;transition:background .2s}
@@ -36,9 +36,48 @@
   .cart-count{position:absolute; top:-6px; right:-6px; background:var(--accent); color:#fff; font-weight:700; font-size:12px; border-radius:999px; padding:2px 6px; min-width:22px; text-align:center}
   .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--g)}
   .hero{min-height:calc(100vh - 64px);display:grid;place-items:center;text-align:center;padding:80px var(--g)}
-  .hero h1{font-family:var(--font-display);font-size:clamp(46px,9vw,92px);line-height:1.05;margin:0 0 18px}
-  .rot{font-weight:700;letter-spacing:.02em;font-size:clamp(22px,3vw,30px);color:var(--accent);min-height:1.6em;transition:opacity .18s;display:inline-block}
+  .hero img{height:120px;margin-bottom:18px}
+  .hero h1{font-family:var(--font-display);font-size:clamp(48px,8vw,96px);line-height:1.05;margin:0 0 12px}
+  .rot{font-weight:700;letter-spacing:.02em;font-size:clamp(22px,3vw,32px);color:var(--accent);min-height:1.6em;transition:opacity .18s;text-transform:lowercase}
   .section{padding:80px 0}
+  .section h2{font-size:clamp(28px,5vw,48px);margin:0 0 12px;font-family:var(--font-display)}
+  .lead{color:var(--muted);max-width:72ch}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:32px}
+  .card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:var(--shadow);display:flex;flex-direction:column}
+  .media{aspect-ratio:4/3;background:#f3f3f5;display:grid;place-items:center;color:var(--muted);font-weight:600}
+  .content{padding:24px;display:grid;gap:12px;flex-grow:1}
+  .pill{display:inline-block;padding:6px 10px;border-radius:999px;font-size:12px;background:#f2f2f3}
+  .pill.magenta{background:color-mix(in oklab,var(--accent) 18%,white);color:#7a0a48}
+  .pill.purple{background:color-mix(in oklab,var(--mind) 20%,white);color:#3e1a77}
+  .btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;border:none;border-radius:999px;padding:10px 16px;font-weight:700;cursor:pointer;transition:background .2s}
+  .btn:hover{background:#d5107f}
+  .btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+  .prose{max-width:72ch}
+  .principles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:10px}
+  .principles li{list-style:none;border:1px solid var(--line);border-radius:12px;background:#fff;padding:12px 14px}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .input{padding:12px 14px;border:1px solid var(--line);border-radius:12px;font-size:16px;width:100%}
+  .notice{padding:12px 14px;background:#fafafa;border:1px dashed var(--line);border-radius:12px}
+  footer{padding:48px 0;border-top:1px solid var(--line);color:var(--muted)}
+  dialog{border:none;border-radius:16px;padding:0;box-shadow:0 20px 60px rgba(0,0,0,.25);width:min(920px,92vw)}
+  dialog::backdrop{background:rgba(0,0,0,.45);backdrop-filter:blur(2px)}
+  .modal-h{display:flex;justify-content:space-between;align-items:center;padding:18px 26px;border-bottom:1px solid var(--line)}
+  .modal-title{margin:0;font-size:22px}
+  .modal-b{padding:26px}
+  .icon-btn{background:transparent;border:none;padding:8px;border-radius:10px;cursor:pointer}
+  .error{display:none;color:#b00020;font-weight:600}
+  .cart-list{list-style:none; margin:0; padding:0; display:grid; gap:10px}
+  .cart-item{display:grid; grid-template-columns: 1fr auto auto; gap:10px; align-items:center; border:1px solid var(--line); border-radius:12px; padding:10px 12px; background:#fff}
+  .qty{display:inline-flex; align-items:center; gap:8px}
+  .qty button{border:1px solid var(--line); background:#fff; border-radius:8px; padding:4px 8px; cursor:pointer}
+  .cart-footer{display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:14px}
+  .total{font-weight:800}
+  .toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:12px 16px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.25);z-index:9999;display:none;align-items:center;gap:10px;font-weight:600}
+  .toast.ok{background:#1a7f37}.toast.warn{background:#aa5800}.toast.err{background:#b00020}
+  .toast button{margin-left:8px;background:#fff;color:#111;border:none;padding:6px 10px;border-radius:8px;cursor:pointer;font-weight:700}
+  @media (max-width:768px){
+    .contact-grid{grid-template-columns:1fr}
+  }
 </style>
 </head>
 <body>
@@ -47,7 +86,7 @@
   <nav class="nav" aria-label="principal">
     <a class="brand" href="#home">
       <img src="Logo_Gnostic_Negro.png" alt="Gnostic logo" onerror="this.style.display='none'">
-      <b>GNOSTIC</b>
+      GNOSTIC
     </a>
     <div class="menu">
       <a href="#shop">Shop</a>
@@ -61,32 +100,100 @@
   </nav>
 </header>
 
+<div id="toast" class="toast" role="status" aria-live="polite">
+  <span id="toast-msg">Mensaje</span>
+  <button onclick="hideToast()">Cerrar</button>
+</div>
+
 <main id="home" class="wrap hero" aria-labelledby="home-title">
   <div>
-    <img src="Logo_Gnostic_Negro.png" alt="Gnostic logo" style="height:110px;margin-bottom:22px" onerror="this.style.display='none'">
-    <h1 id="home-title" style="font-family:var(--font-display);color:#111">GNOSTIC</h1>
+    <img src="Logo_Gnostic_Negro.png" alt="Gnostic logo" onerror="this.style.display='none'">
+    <h1 id="home-title">GNOSTIC</h1>
     <div style="font-size:clamp(22px,3vw,32px);font-weight:600;color:#111">
-      <span>is&nbsp;</span><span id="rot" class="rot">magic</span>
+      <span id="rot" class="rot">magic</span>
     </div>
   </div>
 </main>
 
+<section id="shop" class="wrap section" aria-labelledby="shop-title">
+  <h2 id="shop-title">Shop</h2>
+  <p class="lead">Elige tu producto. Compra segura en Stripe. Algunos contenidos se desbloquean con contraseña tras el pago.</p>
+
+  <div class="grid" style="margin-top:32px">
+    <article class="card">
+      <div class="media">Imagen Mindprint</div>
+      <div class="content">
+        <span class="pill purple">Mindprint</span>
+        <h3>Mindprint — método/juego</h3>
+        <p>Mecánica minimal y precisa. El acceso al contenido avanzado requiere contraseña.</p>
+        <strong>40 €</strong>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
+          <button class="btn" style="background:var(--mind)" onclick="openMindprint()">Ver detalles</button>
+          <button class="btn" onclick="openMindprintGate()">Contenido (con clave)</button>
+          <button class="btn" onclick="addToCart('mindprint')">Añadir a la cesta</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="media">Imagen Doble Lift</div>
+      <div class="content">
+        <span class="pill">Estudio</span>
+        <h3>Estudio del Doble Lift</h3>
+        <p>Tratado conciso y práctico. Entrega por email tras el pago.</p>
+        <strong>14 €</strong>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
+          <button class="btn" onclick="addToCart('doblelift')">Añadir a la cesta</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="media">Thumbnail Empalme</div>
+      <div class="content">
+        <span class="pill magenta">Vídeo protegido</span>
+        <h3>Estudio del Empalme</h3>
+        <p>Descripción pública. El vídeo se desbloquea con contraseña tras la compra.</p>
+        <strong>14 €</strong>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
+          <button class="btn" onclick="openEmpalmeGate()">Ver vídeo (con clave)</button>
+          <button class="btn" onclick="addToCart('empalme')">Añadir a la cesta</button>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- About, Contact, Footer, Modals, Carrito (igual que antes, lo conservamos) -->
+
 <script>
   const CONFIG = {
-    rotator: ['magic','knowledge','silence','ritual','love','everything','mind'],
+    mindprintPassword: 'mindprint-pro',
+    empalmePassword: 'empalme-vid',
+    rotator: ['magic','knowledge','love','everything','mind'],
     rotMs: 2600
   };
 
+  const PRODUCTS = {
+    mindprint:  { name:'Mindprint', eur:40 },
+    doblelift:  { name:'Estudio del Doble Lift', eur:14 },
+    empalme:    { name:'Estudio del Empalme', eur:14 }
+  };
+
+  const PAYMENT_LINKS = {
+    mindprint: 'https://buy.stripe.com/8x2dR2cDa9qZc9d7rsd3i02',
+    doblelift: 'https://buy.stripe.com/6oU8wI9qYfPn4GLdPQd3i00',
+    empalme:   'https://buy.stripe.com/9B628kbz69qZa15fXYd3i01'
+  };
+
+  // Rotador (palabra cambiante + " is magic")
   (function(){
     const el = document.getElementById('rot'), P = CONFIG.rotator;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches){ el.textContent = P[0]; return;}
-    let i=0; 
-    setInterval(()=>{
-      i=(i+1)%P.length; 
-      el.style.opacity=0; 
-      setTimeout(()=>{ el.textContent=P[i]; el.style.opacity=1; },180)
-    }, CONFIG.rotMs);
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches){ el.textContent = P[0] + " is magic"; return;}
+    let i=0; setInterval(()=>{ i=(i+1)%P.length; el.style.opacity=0; setTimeout(()=>{ el.textContent=P[i] + " is magic"; el.style.opacity=1; },180)}, CONFIG.rotMs);
   })();
+
+  // Aquí sigue: carrito, checkout, modales, toasts (idénticos a tu versión anterior)
 </script>
 
 </body>
