@@ -12,9 +12,8 @@
 <style>
   :root{
     --bg:#ffffff; --ink:#111; --muted:#515151; --line:#eee;
-    --accent:#ff1593;         /* magenta tienda */
-    --accent-ink:#fff;
-    --mind:#7d3cff;           /* morado Mindprint */
+    --accent:#ff1593; --accent-ink:#fff;
+    --mind:#7d3cff;
     --radius:16px; --shadow:0 10px 30px rgba(0,0,0,.06);
     --max:1200px; --g:24px;
     --font-body:'Inter',ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
@@ -24,7 +23,6 @@
   html{scroll-behavior:smooth}
   body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.6}
   a{color:inherit}
-  /* Header */
   .hdr{position:sticky;top:0;z-index:50;background:color-mix(in oklab, white 85%, transparent);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--line)}
   .nav{max-width:var(--max);margin:0 auto;display:flex;align-items:center;gap:14px;padding:12px var(--g)}
   .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
@@ -35,7 +33,6 @@
   .menu a:hover::after,.menu a[aria-current="page"]::after{background:var(--accent)}
   .cart-btn{position:relative; display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border:1px solid var(--line); border-radius:999px; background:#fff; cursor:pointer}
   .cart-count{position:absolute; top:-6px; right:-6px; background:var(--accent); color:#fff; font-weight:700; font-size:12px; border-radius:999px; padding:2px 6px; min-width:22px; text-align:center}
-  /* Layout */
   .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--g)}
   .hero{min-height:calc(100vh - 64px);display:grid;place-items:center;text-align:center;padding:80px var(--g)}
   .hero h1{font-family:var(--font-display);font-size:clamp(42px,8vw,84px);line-height:1.05;margin:0 0 10px}
@@ -43,7 +40,6 @@
   .section{padding:80px 0}
   .section h2{font-size:clamp(28px,5vw,48px);margin:0 0 12px}
   .lead{color:var(--muted);max-width:72ch}
-  /* Cards */
   .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:24px}
   .card{grid-column:span 12;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:var(--shadow);display:grid;grid-template-columns:1.4fr 1fr}
   .card.reverse{grid-template-columns:1fr 1.4fr}
@@ -54,7 +50,6 @@
   .pill.purple{background:color-mix(in oklab,var(--mind) 18%,white);color:#3e1a77}
   .btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;border:none;border-radius:999px;padding:10px 16px;font-weight:700;cursor:pointer}
   .btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
-  /* About / Contact */
   .prose{max-width:72ch}
   .principles{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:10px}
   .principles li{list-style:none;border:1px solid var(--line);border-radius:12px;background:#fff;padding:12px 14px}
@@ -62,7 +57,6 @@
   .input{padding:12px 14px;border:1px solid var(--line);border-radius:12px;font-size:16px;width:100%}
   .notice{padding:12px 14px;background:#fafafa;border:1px dashed var(--line);border-radius:12px}
   footer{padding:48px 0;border-top:1px solid var(--line);color:var(--muted)}
-  /* Modals */
   dialog{border:none;border-radius:16px;padding:0;box-shadow:0 20px 60px rgba(0,0,0,.25);width:min(920px,92vw)}
   dialog::backdrop{background:rgba(0,0,0,.45);backdrop-filter:blur(2px)}
   .modal-h{display:flex;justify-content:space-between;align-items:center;padding:18px 26px;border-bottom:1px solid var(--line)}
@@ -70,28 +64,15 @@
   .modal-b{padding:26px}
   .icon-btn{background:transparent;border:none;padding:8px;border-radius:10px;cursor:pointer}
   .error{display:none;color:#b00020;font-weight:600}
-  /* Cart styles */
   .cart-list{list-style:none; margin:0; padding:0; display:grid; gap:10px}
   .cart-item{display:grid; grid-template-columns: 1fr auto auto; gap:10px; align-items:center; border:1px solid var(--line); border-radius:12px; padding:10px 12px; background:#fff}
   .qty{display:inline-flex; align-items:center; gap:8px}
   .qty button{border:1px solid var(--line); background:#fff; border-radius:8px; padding:4px 8px; cursor:pointer}
   .cart-footer{display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:14px}
   .total{font-weight:800}
-  /* Avisos (toasts) */
-  .toast {
-    position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
-    background: #111; color: #fff; padding: 12px 16px; border-radius: 12px;
-    box-shadow: 0 8px 30px rgba(0,0,0,.25); z-index: 9999;
-    display: none; align-items: center; gap: 10px; font-weight: 600;
-  }
-  .toast.ok { background: #1a7f37; }
-  .toast.warn { background: #aa5800; }
-  .toast.err { background: #b00020; }
-  .toast button{
-    margin-left: 8px; background: #fff; color:#111; border: none;
-    padding: 6px 10px; border-radius: 8px; cursor: pointer; font-weight: 700;
-  }
-  /* Responsive */
+  .toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:12px 16px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.25);z-index:9999;display:none;align-items:center;gap:10px;font-weight:600}
+  .toast.ok{background:#1a7f37}.toast.warn{background:#aa5800}.toast.err{background:#b00020}
+  .toast button{margin-left:8px;background:#fff;color:#111;border:none;padding:6px 10px;border-radius:8px;cursor:pointer;font-weight:700}
   @media (max-width:1024px){
     .card,.card.reverse{grid-template-columns:1fr}
     .principles{grid-template-columns:1fr}
@@ -111,7 +92,6 @@
       <a href="#shop">Shop</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
-      <!-- Cart button -->
       <button class="cart-btn" onclick="openCart()" aria-label="Abrir cesta">
         🛒 Cesta
         <span id="cart-count" class="cart-count" hidden>0</span>
@@ -120,7 +100,6 @@
   </nav>
 </header>
 
-<!-- Aviso superior -->
 <div id="toast" class="toast" role="status" aria-live="polite">
   <span id="toast-msg">Mensaje</span>
   <button onclick="hideToast()">Cerrar</button>
@@ -139,7 +118,6 @@
   <p class="lead">Catálogo minimal. La información es pública; el <strong>vídeo del Empalme</strong> y el <strong>contenido avanzado de Mindprint</strong> requieren contraseña tras la compra.</p>
 
   <div class="grid" style="margin-top:32px">
-    <!-- Mindprint -->
     <article class="card">
       <div class="content">
         <span class="pill purple">Mindprint</span>
@@ -154,7 +132,6 @@
       <div class="media" aria-hidden="true">Imagen Mindprint (añade cuando quieras)</div>
     </article>
 
-    <!-- Estudio del Doble Lift -->
     <article class="card reverse">
       <div class="content">
         <span class="pill">Estudio</span>
@@ -167,7 +144,6 @@
       <div class="media" aria-hidden="true">Imagen Doble Lift</div>
     </article>
 
-    <!-- Estudio del Empalme -->
     <article class="card">
       <div class="content">
         <span class="pill magenta">Vídeo protegido</span>
@@ -203,7 +179,6 @@
 <section id="contact" class="wrap section" aria-labelledby="contact-title">
   <h2 id="contact-title">Contact</h2>
   <div class="contact-grid">
-    <!-- Endpoint de Formspree ya configurado -->
     <form class="gate" action="https://formspree.io/f/mvgwgylv" method="POST">
       <label>Nombre</label>
       <input class="input" type="text" name="name" required>
@@ -211,9 +186,7 @@
       <input class="input" type="email" name="_replyto" required>
       <label>Mensaje</label>
       <textarea class="input" name="message" rows="5" maxlength="800" required></textarea>
-      <!-- anti-bots -->
       <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
-      <!-- URL de retorno con aviso -->
       <input type="hidden" name="_next" value="https://gnosticmagic.com/?contact=ok">
       <input type="hidden" name="_subject" value="Nuevo mensaje desde GNOSTIC">
       <button class="btn" type="submit">Enviar</button>
@@ -236,7 +209,6 @@
   </div>
 </footer>
 
-<!-- Modales existentes -->
 <dialog id="modal-mindprint" aria-labelledby="modal-mindprint-title">
   <div class="modal-h">
     <h3 id="modal-mindprint-title" class="modal-title">Mindprint</h3>
@@ -244,9 +216,7 @@
   </div>
   <div class="modal-b">
     <p style="margin-top:0">Descripción placeholder de Mindprint. Aquí irá el texto final y, si lo apruebas, una pequeña galería.</p>
-    <ul>
-      <li>Punto 1</li><li>Punto 2</li><li>Punto 3</li>
-    </ul>
+    <ul><li>Punto 1</li><li>Punto 2</li><li>Punto 3</li></ul>
     <div style="display:flex;gap:12px;margin-top:12px">
       <button class="btn" onclick="addToCart('mindprint')">Añadir a la cesta</button>
       <button class="btn ghost" onclick="closeModal('modal-mindprint')">Cerrar</button>
@@ -297,7 +267,6 @@
   </div>
 </dialog>
 
-<!-- CARRITO -->
 <dialog id="cart-dialog" aria-labelledby="cart-title">
   <div class="modal-h">
     <h3 id="cart-title" class="modal-title">Tu cesta</h3>
@@ -306,4 +275,177 @@
   <div class="modal-b">
     <ul id="cart-list" class="cart-list"></ul>
     <div class="cart-footer">
-      <div class="total">Total: <span id="cart-total
+      <div class="total">Total: <span id="cart-total">0 €</span></div>
+      <div style="display:flex; gap:10px;">
+        <button class="btn ghost" onclick="clearCart()">Vaciar</button>
+        <button class="btn" onclick="checkout()">Pagar</button>
+      </div>
+    </div>
+    <p class="notice" style="margin-top:10px">El pago se realiza de forma segura en Stripe.</p>
+  </div>
+</dialog>
+
+<script>
+  // ====== CONFIG ======
+  const CONFIG = {
+    mindprintPassword: 'mindprint-pro',
+    empalmePassword: 'empalme-vid',
+    rotator: ['Love is Magic','Knowledge is Magic','All is Magic','Everything is Magic'],
+    rotMs: 2600
+  };
+
+  // (Guardamos por si luego montamos el Worker)
+  const WORKER_URL = 'https://gnostic-checkout.arctisamuel.workers.dev/';
+
+  // ====== PRODUCTOS (PRICE IDs LIVE, para el futuro Worker) ======
+  const PRODUCTS = {
+    mindprint:  { name:'Mindprint',               priceId:'price_1SBZ9m6qmK1XfwfaggV2CcjA', eur:40 },
+    doblelift:  { name:'Estudio del Doble Lift',  priceId:'price_1SBZ8v6qmK1XfwfasZQD6hI4', eur:14 },
+    empalme:    { name:'Estudio del Empalme',     priceId:'price_1SBZA76qmK1Xfwfa0HplFoc6', eur:14 }
+  };
+
+  // ====== PAYMENT LINKS LIVE ======
+  const PAYMENT_LINKS = {
+    mindprint: 'https://buy.stripe.com/8x2dR2cDa9qZc9d7rsd3i02',
+    doblelift: 'https://buy.stripe.com/6oU8wI9qYfPn4GLdPQd3i00',
+    empalme:   'https://buy.stripe.com/9B628kbz69qZa15fXYd3i01'
+  };
+
+  // ====== UTILIDADES ======
+  const fmt = n => new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n);
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  (function(){
+    const el = document.getElementById('rot'), P = CONFIG.rotator;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches){ el.textContent = P[0]; return;}
+    let i=0; setInterval(()=>{ i=(i+1)%P.length; el.style.opacity=0; setTimeout(()=>{ el.textContent=P[i]; el.style.opacity=1; },180)}, CONFIG.rotMs);
+  })();
+
+  function mark(){ document.querySelectorAll('.menu a').forEach(a=>a.removeAttribute('aria-current')); const id=location.hash||'#home'; const a=document.querySelector('.menu a[href="'+id+'"]'); if(a) a.setAttribute('aria-current','page');}
+  addEventListener('hashchange',mark); mark();
+
+  function openMindprint(){ document.getElementById('modal-mindprint').showModal(); }
+  function openMindprintGate(){ document.getElementById('modal-mindprint-gate').showModal(); }
+  function openMindprintProtected(e){ e.preventDefault();
+    const ok = document.getElementById('mindprint-pass').value.trim() === CONFIG.mindprintPassword;
+    document.getElementById('mindprint-error').style.display = ok ? 'none':'block';
+    if(ok){ closeModal('modal-mindprint-gate'); alert('Contenido protegido de Mindprint (demo).'); }
+    return false;
+  }
+  function openEmpalmeGate(){ document.getElementById('modal-empalme-gate').showModal(); }
+  function openEmpalme(e){ e.preventDefault();
+    const ok = document.getElementById('empalme-pass').value.trim() === CONFIG.empalmePassword;
+    document.getElementById('empalme-error').style.display = ok ? 'none':'block';
+    if(ok){ closeModal('modal-empalme-gate'); document.getElementById('modal-empalme-video').showModal(); }
+    return false;
+  }
+  function closeModal(id){ const d=document.getElementById(id); if(d && d.open) d.close(); }
+
+  // ====== CARRITO ======
+  const CART_KEY = 'gnosticCart';
+  let cart = loadCart();
+  renderCartIcon();
+
+  function loadCart(){ try{ return JSON.parse(localStorage.getItem(CART_KEY)) || []; }catch(_){ return []; } }
+  function saveCart(){ localStorage.setItem(CART_KEY, JSON.stringify(cart)); renderCartIcon(); }
+  function renderCartIcon(){
+    const n = cart.reduce((a,x)=>a+x.qty,0);
+    const b = document.getElementById('cart-count');
+    if(n>0){ b.hidden=false; b.textContent=n; } else { b.hidden=true; }
+  }
+  function openCart(){ renderCartList(); document.getElementById('cart-dialog').showModal(); }
+  function clearCart(){ cart = []; saveCart(); renderCartList(); }
+  function addToCart(key){
+    const item = PRODUCTS[key]; if(!item){ alert('Producto no disponible.'); return; }
+    const found = cart.find(x=>x.key===key);
+    if(found) found.qty += 1; else cart.push({ key, qty:1 });
+    saveCart(); renderCartList();
+    document.querySelector('.cart-btn')?.animate([{transform:'scale(1)'},{transform:'scale(1.06)'},{transform:'scale(1)'}],{duration:300});
+  }
+  function decQty(i){ cart[i].qty = Math.max(1, cart[i].qty-1); saveCart(); renderCartList(); }
+  function incQty(i){ cart[i].qty += 1; saveCart(); renderCartList(); }
+  function removeItem(i){ cart.splice(i,1); saveCart(); renderCartList(); }
+
+  function renderCartList(){
+    const ul = document.getElementById('cart-list'); ul.innerHTML = '';
+    let total = 0;
+    if(cart.length===0){
+      ul.innerHTML = '<li class="cart-item" style="justify-content:center">Tu cesta está vacía.</li>';
+    }else{
+      cart.forEach((row, i)=>{
+        const p = PRODUCTS[row.key]; const line = p.eur * row.qty; total += line;
+        const li = document.createElement('li'); li.className='cart-item';
+        li.innerHTML = `
+          <div><strong>${p.name}</strong><br><small>${fmt(p.eur)} × ${row.qty}</small></div>
+          <div class="qty">
+            <button aria-label="Restar" onclick="decQty(${i})">−</button>
+            <span>${row.qty}</span>
+            <button aria-label="Sumar" onclick="incQty(${i})">+</button>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px">
+            <strong>${fmt(line)}</strong>
+            <button class="icon-btn" aria-label="Quitar" onclick="removeItem(${i})">🗑️</button>
+          </div>`;
+        ul.appendChild(li);
+      });
+    }
+    document.getElementById('cart-total').textContent = fmt(total);
+  }
+
+  // ====== CHECKOUT con PAYMENT LINKS ======
+  async function checkout(){
+    if(cart.length===0){ alert('Tu cesta está vacía.'); return; }
+
+    if (cart.length === 1) {
+      const only = cart[0];
+      const link = PAYMENT_LINKS[only.key];
+      if (!link){ alert('No hay enlace de pago configurado para ese producto.'); return; }
+
+      if (only.qty > 1) {
+        const ok = confirm('El enlace de Stripe cobra 1 unidad por pago. Puedes repetir el pago para varias unidades.\n\n¿Continuar al pago de 1 unidad ahora?');
+        if (!ok) return;
+      }
+      window.location.href = link; // redirección directa
+      return;
+    }
+
+    // Varios productos: mostramos los enlaces para pagar por separado
+    let msg = 'Puedes pagar cada producto con su enlace de Stripe:\n';
+    cart.forEach(row=>{
+      const link = PAYMENT_LINKS[row.key];
+      msg += `\n- ${PRODUCTS[row.key].name}: ${link ? link : '(sin enlace)'}`;
+    });
+    alert(msg);
+  }
+
+  // ====== TOASTS ======
+  function showToast(msg, type='ok'){
+    const t = document.getElementById('toast');
+    document.getElementById('toast-msg').textContent = msg;
+    t.className = 'toast ' + (type || 'ok');
+    t.style.display = 'inline-flex';
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(hideToast, 6000);
+  }
+  function hideToast(){ document.getElementById('toast').style.display='none'; }
+
+  (function handleReturn(){
+    const p = new URLSearchParams(location.search);
+    if (p.has('paid')) {
+      try { cart = []; saveCart(); renderCartList(); } catch(_) {}
+      showToast('¡Pago completado! Gracias por tu compra. Revisa tu email.', 'ok');
+      history.replaceState({}, '', location.pathname);
+    }
+    if (p.has('cancel')) {
+      showToast('Pago cancelado. Puedes reintentarlo cuando quieras.', 'warn');
+      history.replaceState({}, '', location.pathname);
+    }
+    if (p.get('contact') === 'ok') {
+      showToast('¡Mensaje enviado! Te responderé lo antes posible.', 'ok');
+      history.replaceState({}, '', location.pathname);
+    }
+  })();
+</script>
+
+</body>
+</html>
