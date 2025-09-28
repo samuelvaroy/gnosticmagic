@@ -12,7 +12,7 @@
 <style>
   :root{
     --bg:#ffffff; --ink:#111; --muted:#515151; --line:#eee;
-    --accent:#d2169c; /* magenta vivo */
+    --accent:#ff1593; /* MAGENTA */
     --accent-ink:#fff;
     --mind:#7d3cff;
     --radius:16px; --shadow:0 10px 30px rgba(0,0,0,.06);
@@ -24,46 +24,73 @@
   html{scroll-behavior:smooth}
   body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.6}
   a{color:inherit;text-decoration:none}
+
+  /* Header */
   .hdr{position:sticky;top:0;z-index:50;background:color-mix(in oklab, white 85%, transparent);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--line)}
   .nav{max-width:var(--max);margin:0 auto;display:flex;align-items:center;gap:14px;padding:12px var(--g)}
-  .brand img{height:40px}
+  .brand img{height:44px}
   .menu{margin-left:auto;display:flex;gap:18px;align-items:center}
   .menu a{padding:8px 6px;border-radius:10px;position:relative}
   .menu a::after{content:"";position:absolute;left:10px;right:10px;bottom:4px;height:2px;background:transparent;border-radius:2px;transition:background .2s}
   .menu a:hover::after,.menu a[aria-current="page"]::after{background:var(--accent)}
   .cart-btn{position:relative;display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;cursor:pointer}
   .cart-count{position:absolute;top:-6px;right:-6px;background:var(--accent);color:#fff;font-weight:700;font-size:12px;border-radius:999px;padding:2px 6px;min-width:22px;text-align:center}
+
+  /* Layout */
   .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--g)}
   .hero{min-height:calc(100vh - 64px);display:grid;place-items:center;text-align:center;padding:80px var(--g)}
-  .hero h1{font-family:var(--font-display);font-size:clamp(52px,9vw,96px);line-height:1.05;margin:0 0 20px;color:#111}
-  .rotator{font-size:clamp(22px,3.5vw,32px);font-weight:600}
-  .rotator span.word{color:var(--accent);text-transform:lowercase}
-  .rotator span.fixed{color:#111}
+  .hero h1{font-family:var(--font-display);font-size:clamp(56px,9vw,100px);line-height:1.05;margin:0 0 20px;color:#111}
+  .rotator{font-size:clamp(22px,3.5vw,32px);font-weight:700;letter-spacing:.01em}
+  .rotator .word{color:var(--accent);text-transform:lowercase}
+  .rotator .fixed{color:#111}
+
   .section{padding:80px 0}
   .section h2{font-size:clamp(28px,5vw,48px);margin:0 0 12px}
   .lead{color:var(--muted);max-width:72ch}
+
+  /* Shop */
   .grid-shop{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px;margin-top:32px}
   .card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:var(--shadow);display:flex;flex-direction:column}
   .media{aspect-ratio:4/3;background:#f3f3f5;display:grid;place-items:center;color:var(--muted);font-weight:600}
   .content{padding:24px;display:grid;gap:12px;flex-grow:1}
+  .price{font-weight:800}
   .pill{display:inline-block;padding:6px 10px;border-radius:999px;font-size:12px;background:#f2f2f3}
   .pill.magenta{background:color-mix(in oklab,var(--accent) 14%,white);color:#7a0a48}
   .pill.purple{background:color-mix(in oklab,var(--mind) 18%,white);color:#3e1a77}
   .btn{display:inline-block;background:var(--accent);color:#fff;border:none;border-radius:999px;padding:10px 16px;font-weight:700;cursor:pointer;text-align:center}
   .btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+  .btn.inline{padding:8px 12px;font-weight:700}
+
+  /* About / Contact */
   .prose{max-width:72ch}
+
   footer{padding:48px 0;border-top:1px solid var(--line);color:var(--muted)}
+
+  /* Dialogs */
   dialog{border:none;border-radius:16px;padding:0;box-shadow:0 20px 60px rgba(0,0,0,.25);width:min(920px,92vw)}
   dialog::backdrop{background:rgba(0,0,0,.45);backdrop-filter:blur(2px)}
   .modal-h{display:flex;justify-content:space-between;align-items:center;padding:18px 26px;border-bottom:1px solid var(--line)}
   .modal-title{margin:0;font-size:22px}
   .modal-b{padding:26px}
+  .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .thumb{width:100%;aspect-ratio:4/3;background:#f3f3f5;border-radius:12px;display:grid;place-items:center;color:#888}
+  .gate{border:1px dashed var(--line);border-radius:12px;padding:16px}
+  .input{padding:12px 14px;border:1px solid var(--line);border-radius:12px;font-size:16px;width:100%}
+  .error{display:none;color:#b00020;font-weight:700;margin-top:6px}
+
+  /* Cart */
   .cart-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
   .cart-item{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff}
+  .qty{display:inline-flex;align-items:center;gap:8px}
+  .qty button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:4px 8px;cursor:pointer}
   .cart-footer{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:14px}
   .total{font-weight:800}
+
+  /* Toasts */
   .toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:12px 16px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.25);z-index:9999;display:none;align-items:center;gap:10px;font-weight:600}
   .toast.ok{background:#1a7f37}.toast.warn{background:#aa5800}.toast.err{background:#b00020}
+
+  @media (max-width:900px){ .modal-grid{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
@@ -71,7 +98,7 @@
 <header class="hdr">
   <nav class="nav" aria-label="principal">
     <a class="brand" href="#home">
-      <img src="Logo_Gnostic_Negro.png" alt="Gnostic logo">
+      <img src="Logo_Gnostic_Negro.png" alt="Gnostic logo" onerror="this.style.display='none'">
     </a>
     <div class="menu">
       <a href="#shop">Shop</a>
@@ -84,114 +111,425 @@
   </nav>
 </header>
 
+<!-- Toast -->
+<div id="toast" class="toast" role="status" aria-live="polite">
+  <span id="toast-msg">Mensaje</span>
+  <button class="btn inline ghost" onclick="hideToast()">Cerrar</button>
+</div>
+
+<!-- HERO -->
 <main id="home" class="wrap hero" aria-labelledby="home-title">
   <div>
-    <img src="Logo_Gnostic_Negro.png" alt="Gnostic logo" style="height:120px;margin-bottom:18px">
+    <img src="Logo_Gnostic_Negro.png" alt="Gnostic logo" style="height:120px;margin-bottom:18px" onerror="this.style.display='none'">
     <h1 id="home-title">GNOSTIC</h1>
     <div class="rotator"><span id="rot" class="word">magic</span> <span class="fixed">is magic</span></div>
   </div>
 </main>
 
-<!-- ============= SHOP ============= -->
+<!-- SHOP -->
 <section id="shop" class="wrap section" aria-labelledby="shop-title">
   <h2 id="shop-title">Shop</h2>
-  <p class="lead">Catálogo minimal. Algunos contenidos requieren contraseña tras la compra.</p>
+  <p class="lead">Tienda minimal. Cada artículo incluye descripción y acceso protegido cuando corresponde.</p>
+
   <div class="grid-shop">
     <!-- Mindprint -->
     <article class="card">
-      <div class="media">Imagen Mindprint</div>
+      <div class="media"><img src="thumb-mindprint.jpg" alt="" onerror="this.parentNode.textContent='Imagen Mindprint'"></div>
       <div class="content">
         <span class="pill purple">Mindprint</span>
         <h3>Mindprint — método/juego</h3>
-        <p>Mecánica minimal y precisa. Acceso avanzado requiere contraseña.</p>
-        <button class="btn" onclick="addToCart('mindprint')">Añadir a la cesta — 40 €</button>
+        <p>Mecánica minimal y precisa. Acceso avanzado protegido con clave.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <span class="price">40 €</span>
+          <button class="btn inline" onclick="addToCart('mindprint')">Añadir</button>
+          <button class="btn inline ghost" onclick="openModal('modal-mindprint')">Ver detalles</button>
+        </div>
       </div>
     </article>
+
     <!-- Doble Lift -->
     <article class="card">
-      <div class="media">Imagen Doble Lift</div>
+      <div class="media"><img src="thumb-doblelift.jpg" alt="" onerror="this.parentNode.textContent='Imagen Doble Lift'"></div>
       <div class="content">
         <span class="pill">Estudio</span>
         <h3>Estudio del Doble Lift</h3>
-        <p>Tratado conciso y práctico. Entrega por email tras el pago.</p>
-        <button class="btn" onclick="addToCart('doblelift')">Añadir a la cesta — 14 €</button>
+        <p>Tratado conciso y práctico. Entrega por email tras el pago. Acceso extra protegido.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <span class="price">14 €</span>
+          <button class="btn inline" onclick="addToCart('doblelift')">Añadir</button>
+          <button class="btn inline ghost" onclick="openModal('modal-doblelift')">Ver detalles</button>
+        </div>
       </div>
     </article>
+
     <!-- Empalme -->
     <article class="card">
-      <div class="media">Thumbnail vídeo Empalme</div>
+      <div class="media"><img src="thumb-empalme.jpg" alt="" onerror="this.parentNode.textContent='Thumbnail vídeo Empalme'"></div>
       <div class="content">
         <span class="pill magenta">Vídeo protegido</span>
         <h3>Estudio del Empalme</h3>
-        <p>Vídeo protegido con clave entregada tras la compra.</p>
-        <button class="btn" onclick="addToCart('empalme')">Añadir a la cesta — 14 €</button>
+        <p>Vídeo con contraseña entregada tras la compra.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <span class="price">14 €</span>
+          <button class="btn inline" onclick="addToCart('empalme')">Añadir</button>
+          <button class="btn inline ghost" onclick="openModal('modal-empalme')">Ver detalles</button>
+        </div>
       </div>
     </article>
   </div>
 </section>
 
-<!-- ============= ABOUT ============= -->
-<section id="about" class="wrap section">
-  <h2>About</h2>
+<!-- ABOUT -->
+<section id="about" class="wrap section" aria-labelledby="about-title">
+  <h2 id="about-title">About</h2>
   <div class="prose">
-    <p>Mi práctica parte de una idea simple: el conocimiento no es acumulación, es <strong>dirección</strong>. GNOSTIC existe para orientar esa dirección.</p>
+    <p>GNOSTIC orienta la atención: menos ruido, más precisión. Silencio (escuchar la forma), símbolo (condensar significado) y ritual (repetir lo que funciona).</p>
     <ul>
       <li>Minimalismo místico — blanco/negro; magenta como umbral.</li>
       <li>Exactitud — cada palabra y gesto sirven a un propósito.</li>
       <li>Accesibilidad — contraste alto, tipografía legible.</li>
+      <li>Respeto — contenidos protegidos tras la compra.</li>
     </ul>
   </div>
 </section>
 
-<!-- ============= CONTACT ============= -->
-<section id="contact" class="wrap section">
-  <h2>Contact</h2>
-  <form action="https://formspree.io/f/mvgwgylv" method="POST">
-    <input class="input" type="text" name="name" placeholder="Nombre" required>
-    <input class="input" type="email" name="_replyto" placeholder="Email" required>
-    <textarea class="input" name="message" rows="5" placeholder="Mensaje" required></textarea>
-    <button class="btn" type="submit">Enviar</button>
-  </form>
+<!-- CONTACT -->
+<section id="contact" class="wrap section" aria-labelledby="contact-title">
+  <h2 id="contact-title">Contact</h2>
+  <div class="modal-grid">
+    <form class="gate" action="https://formspree.io/f/mvgwgylv" method="POST">
+      <label>Nombre</label>
+      <input class="input" type="text" name="name" required>
+      <label>Email</label>
+      <input class="input" type="email" name="_replyto" required>
+      <label>Mensaje</label>
+      <textarea class="input" name="message" rows="5" maxlength="800" required></textarea>
+      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+      <input type="hidden" name="_next" value="/?contact=ok">
+      <input type="hidden" name="_subject" value="Nuevo mensaje desde GNOSTIC">
+      <button class="btn" type="submit">Enviar</button>
+      <p class="muted" style="margin-top:10px;color:var(--muted)">Respondo por email. Tus datos no se comparten con terceros.</p>
+    </form>
+    <div>
+      <p class="lead">También puedes escribir a <em>contact@gnosticmagic.com</em>.</p>
+      <div style="margin-top:18px"><img src="Logo_Gnostic_Negro.png" alt="Símbolo" style="height:90px" onerror="this.style.display='none'"></div>
+    </div>
+  </div>
 </section>
 
 <footer>
   <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
     <small>© <span id="year"></span> GNOSTIC</small>
+    <nav aria-label="legal" style="display:flex;gap:14px;opacity:.7">
+      <a href="#" aria-disabled="true">Términos</a>
+      <a href="#" aria-disabled="true">Privacidad</a>
+    </nav>
   </div>
 </footer>
 
-<!-- ============= DIALOG CARRITO ============= -->
-<dialog id="cart-dialog">
-  <div class="modal-h"><h3>Tu cesta</h3><button onclick="closeModal('cart-dialog')">✕</button></div>
+<!-- ========== MODALES DETALLE + GATE EN EL MISMO ========== -->
+
+<!-- Mindprint -->
+<dialog id="modal-mindprint" aria-labelledby="mindprint-title">
+  <div class="modal-h">
+    <h3 id="mindprint-title" class="modal-title">Mindprint — Detalles</h3>
+    <button class="btn inline ghost" onclick="closeModal('modal-mindprint')">✕</button>
+  </div>
   <div class="modal-b">
-    <ul id="cart-list" class="cart-list"></ul>
-    <div class="cart-footer">
-      <div class="total">Total: <span id="cart-total">0 €</span></div>
-      <div><button class="btn ghost" onclick="clearCart()">Vaciar</button>
-      <button class="btn" onclick="checkout()">Pagar</button></div>
+    <div class="modal-grid">
+      <div>
+        <div class="thumb"><img src="mindprint-1.jpg" alt="" onerror="this.parentNode.textContent='Foto Mindprint 1'"></div>
+        <div class="thumb"><img src="mindprint-2.jpg" alt="" onerror="this.parentNode.textContent='Foto Mindprint 2'"></div>
+      </div>
+      <div>
+        <p>Método/juego de atención y significado. Minimal, directo y repetible. Incluye materiales y guía avanzada protegida.</p>
+        <div style="display:flex;gap:8px;margin:8px 0 16px">
+          <button class="btn inline" onclick="addToCart('mindprint')">Añadir — 40 €</button>
+          <button class="btn inline ghost" onclick="checkoutSingle('mindprint')">Comprar ahora</button>
+        </div>
+        <div class="gate">
+          <strong>Acceso protegido</strong>
+          <p>Introduce la contraseña entregada tras la compra para abrir el material avanzado.</p>
+          <input class="input" id="pass-mindprint" type="password" placeholder="Contraseña">
+          <button class="btn inline" onclick="unlockMindprint()">Desbloquear</button>
+          <div id="err-mindprint" class="error">Contraseña incorrecta.</div>
+        </div>
+      </div>
     </div>
   </div>
 </dialog>
 
-<div id="toast" class="toast"><span id="toast-msg">Mensaje</span></div>
+<!-- Doble Lift -->
+<dialog id="modal-doblelift" aria-labelledby="doblelift-title">
+  <div class="modal-h">
+    <h3 id="doblelift-title" class="modal-title">Estudio del Doble Lift — Detalles</h3>
+    <button class="btn inline ghost" onclick="closeModal('modal-doblelift')">✕</button>
+  </div>
+  <div class="modal-b">
+    <div class="modal-grid">
+      <div>
+        <div class="thumb"><img src="doblelift-1.jpg" alt="" onerror="this.parentNode.textContent='Foto Doble Lift 1'"></div>
+        <div class="thumb"><img src="doblelift-2.jpg" alt="" onerror="this.parentNode.textContent='Foto Doble Lift 2'"></div>
+      </div>
+      <div>
+        <p>Tratado conciso y práctico del Doble Lift. Tras el pago recibes el PDF por email. Material adicional se desbloquea con clave.</p>
+        <div style="display:flex;gap:8px;margin:8px 0 16px">
+          <button class="btn inline" onclick="addToCart('doblelift')">Añadir — 14 €</button>
+          <button class="btn inline ghost" onclick="checkoutSingle('doblelift')">Comprar ahora</button>
+        </div>
+        <div class="gate">
+          <strong>Acceso protegido</strong>
+          <p>Introduce la contraseña de comprador para ver el anexo.</p>
+          <input class="input" id="pass-doblelift" type="password" placeholder="Contraseña">
+          <button class="btn inline" onclick="unlockDobleLift()">Desbloquear</button>
+          <div id="err-doblelift" class="error">Contraseña incorrecta.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<!-- Empalme -->
+<dialog id="modal-empalme" aria-labelledby="empalme-title">
+  <div class="modal-h">
+    <h3 id="empalme-title" class="modal-title">Estudio del Empalme — Detalles</h3>
+    <button class="btn inline ghost" onclick="closeModal('modal-empalme')">✕</button>
+  </div>
+  <div class="modal-b">
+    <div class="modal-grid">
+      <div>
+        <div class="thumb"><img src="empalme-1.jpg" alt="" onerror="this.parentNode.textContent='Foto Empalme 1'"></div>
+        <div class="thumb"><img src="empalme-2.jpg" alt="" onerror="this.parentNode.textContent='Foto Empalme 2'"></div>
+      </div>
+      <div>
+        <p>Vídeo de estudio del empalme. La contraseña se entrega tras la compra.</p>
+        <div style="display:flex;gap:8px;margin:8px 0 16px">
+          <button class="btn inline" onclick="addToCart('empalme')">Añadir — 14 €</button>
+          <button class="btn inline ghost" onclick="checkoutSingle('empalme')">Comprar ahora</button>
+        </div>
+        <div class="gate">
+          <strong>Acceso al vídeo</strong>
+          <p>Introduce la contraseña para ver el vídeo aquí mismo.</p>
+          <input class="input" id="pass-empalme" type="password" placeholder="Contraseña">
+          <button class="btn inline" onclick="unlockEmpalme()">Ver vídeo</button>
+          <div id="err-empalme" class="error">Contraseña incorrecta.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<!-- Vídeo Empalme -->
+<dialog id="modal-empalme-video" aria-labelledby="empalme-video-title">
+  <div class="modal-h">
+    <h3 id="empalme-video-title" class="modal-title">Estudio del Empalme — Vídeo</h3>
+    <button class="btn inline ghost" onclick="closeModal('modal-empalme-video')">✕</button>
+  </div>
+  <div class="modal-b">
+    <video id="empalme-player" controls playsinline preload="metadata"
+      style="width:100%;border-radius:12px;background:#000" controlsList="nodownload">
+      <source src="video-empalme-demo.mp4" type="video/mp4">
+      Tu navegador no soporta vídeo HTML5.
+    </video>
+    <p class="lead" style="color:var(--muted);margin-top:10px">Contenido protegido.</p>
+  </div>
+</dialog>
+
+<!-- ========== CARRITO ========== -->
+<dialog id="cart-dialog" aria-labelledby="cart-title">
+  <div class="modal-h">
+    <h3 id="cart-title" class="modal-title">Tu cesta</h3>
+    <button class="btn inline ghost" onclick="closeModal('cart-dialog')">✕</button>
+  </div>
+  <div class="modal-b">
+    <ul id="cart-list" class="cart-list"></ul>
+    <div class="cart-footer">
+      <div class="total">Total: <span id="cart-total">0 €</span></div>
+      <div style="display:flex; gap:10px;">
+        <button class="btn ghost" onclick="clearCart()">Vaciar</button>
+        <button class="btn" onclick="checkout()">Pagar</button>
+      </div>
+    </div>
+    <p class="lead" style="color:var(--muted);margin-top:8px">Pagos seguros con Stripe.</p>
+  </div>
+</dialog>
 
 <script>
-  const CONFIG={rotator:['magic','knowledge','love','everything','mind'],rotMs:2600};
-  const PRODUCTS={mindprint:{name:'Mindprint',eur:40},doblelift:{name:'Estudio del Doble Lift',eur:14},empalme:{name:'Estudio del Empalme',eur:14}};
-  const PAYMENT_LINKS={mindprint:'https://buy.stripe.com/8x2dR2cDa9qZc9d7rsd3i02',doblelift:'https://buy.stripe.com/6oU8wI9qYfPn4GLdPQd3i00',empalme:'https://buy.stripe.com/9B628kbz69qZa15fXYd3i01'};
-  const CART_KEY='gnosticCart';let cart=JSON.parse(localStorage.getItem(CART_KEY)||'[]');
+  // ====== CONFIG ======
+  const CONFIG = {
+    // Cambia estas contraseñas cuando quieras
+    mindprintPassword: 'mindprint-pro',
+    dobleliftPassword: 'doble-pro',
+    empalmePassword: 'empalme-vid',
+    rotator: ['magic','knowledge','love','everything','mind'],
+    rotMs: 2600
+  };
 
-  function saveCart(){localStorage.setItem(CART_KEY,JSON.stringify(cart));renderCartIcon();}
-  function renderCartIcon(){const n=cart.reduce((a,x)=>a+x.qty,0);const b=document.getElementById('cart-count');if(n>0){b.hidden=false;b.textContent=n;}else{b.hidden=true;}}
-  function addToCart(key){const f=cart.find(x=>x.key===key);if(f)f.qty++;else cart.push({key,qty:1});saveCart();renderCartList();document.getElementById('cart-dialog').showModal();}
-  function clearCart(){cart=[];saveCart();renderCartList();}
-  function renderCartList(){const ul=document.getElementById('cart-list');ul.innerHTML='';let total=0;cart.forEach((row,i)=>{const p=PRODUCTS[row.key];const line=p.eur*row.qty;total+=line;ul.innerHTML+=`<li class="cart-item"><div><b>${p.name}</b><br>${p.eur}€ × ${row.qty}</div><div><b>${line}€</b></div></li>`;});document.getElementById('cart-total').textContent=total+' €';}
-  async function checkout(){if(cart.length===0){alert('Cesta vacía');return;}if(cart.length===1){window.location.href=PAYMENT_LINKS[cart[0].key];}else{alert('Paga productos por separado.');}}
-  function closeModal(id){document.getElementById(id).close();}
-  renderCartIcon();
+  // ====== PRODUCTOS + LINKS ======
+  const PRODUCTS = {
+    mindprint:  { name:'Mindprint',               eur:40 },
+    doblelift:  { name:'Estudio del Doble Lift',  eur:14 },
+    empalme:    { name:'Estudio del Empalme',     eur:14 }
+  };
 
-  (function(){const el=document.getElementById('rot'),P=CONFIG.rotator;let i=0;setInterval(()=>{i=(i+1)%P.length;el.style.opacity=0;setTimeout(()=>{el.textContent=P[i];el.style.opacity=1;},180)},CONFIG.rotMs);})();
-  document.getElementById('year').textContent=new Date().getFullYear();
+  // Stripe Payment Links (reales)
+  const PAYMENT_LINKS = {
+    mindprint: 'https://buy.stripe.com/8x2dR2cDa9qZc9d7rsd3i02',
+    doblelift: 'https://buy.stripe.com/6oU8wI9qYfPn4GLdPQd3i00',
+    empalme:   'https://buy.stripe.com/9B628kbz69qZa15fXYd3i01'
+  };
+
+  // ====== UTIL ======
+  const fmt = n => new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n);
+  document.getElementById('year') && (document.getElementById('year').textContent = new Date().getFullYear());
+
+  // Rotador
+  (function(){
+    const el = document.getElementById('rot'), P = CONFIG.rotator;
+    if (!el) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches){ el.textContent = P[0]; return;}
+    let i=0; setInterval(()=>{ i=(i+1)%P.length; el.style.opacity=0; setTimeout(()=>{ el.textContent=P[i]; el.style.opacity=1; },180)}, CONFIG.rotMs);
+  })();
+
+  function openModal(id){ const d=document.getElementById(id); if(d) d.showModal(); }
+  function closeModal(id){ const d=document.getElementById(id); if(d && d.open) d.close(); }
+
+  // ====== GATES (en el mismo modal) ======
+  function unlockMindprint(){
+    const ok = document.getElementById('pass-mindprint').value.trim() === CONFIG.mindprintPassword;
+    document.getElementById('err-mindprint').style.display = ok ? 'none' : 'block';
+    if (ok) alert('✅ Acceso Mindprint desbloqueado (aquí iría el material avanzado).');
+  }
+  function unlockDobleLift(){
+    const ok = document.getElementById('pass-doblelift').value.trim() === CONFIG.dobleliftPassword;
+    document.getElementById('err-doblelift').style.display = ok ? 'none' : 'block';
+    if (ok) alert('✅ Anexo Doble Lift desbloqueado (enlaza o muestra aquí el material).');
+  }
+  function unlockEmpalme(){
+    const ok = document.getElementById('pass-empalme').value.trim() === CONFIG.empalmePassword;
+    document.getElementById('err-empalme').style.display = ok ? 'none' : 'block';
+    if (ok){ closeModal('modal-empalme'); openModal('modal-empalme-video'); }
+  }
+
+  // ====== CARRITO ======
+  const CART_KEY = 'gnosticCart';
+  let cart = loadCart(); renderCartIcon();
+
+  function loadCart(){
+    try{ return JSON.parse(localStorage.getItem(CART_KEY)) || []; }catch(_){ return []; }
+  }
+  function saveCart(){ localStorage.setItem(CART_KEY, JSON.stringify(cart)); renderCartIcon(); }
+
+  function renderCartIcon(){
+    const n = cart.reduce((a,x)=>a+x.qty,0);
+    const b = document.getElementById('cart-count'); if(!b) return;
+    if(n>0){ b.hidden=false; b.textContent=n; } else { b.hidden=true; }
+  }
+
+  function openCart(){ renderCartList(); openModal('cart-dialog'); }
+  function clearCart(){ cart = []; saveCart(); renderCartList(); }
+
+  function addToCart(key){
+    const p = PRODUCTS[key]; if(!p){ alert('Producto no disponible.'); return; }
+    const f = cart.find(x=>x.key===key);
+    if(f) f.qty += 1; else cart.push({ key, qty:1 });
+    saveCart(); renderCartList();
+    // feedback
+    document.querySelector('.cart-btn')?.animate([{transform:'scale(1)'},{transform:'scale(1.06)'},{transform:'scale(1)'}],{duration:300});
+  }
+
+  function decQty(i){ cart[i].qty = Math.max(1, cart[i].qty-1); saveCart(); renderCartList(); }
+  function incQty(i){ cart[i].qty += 1; saveCart(); renderCartList(); }
+  function removeItem(i){ cart.splice(i,1); saveCart(); renderCartList(); }
+
+  function renderCartList(){
+    const ul = document.getElementById('cart-list'); if(!ul) return;
+    ul.innerHTML = '';
+    let total = 0;
+    if(cart.length===0){
+      ul.innerHTML = '<li class="cart-item" style="justify-content:center">Tu cesta está vacía.</li>';
+    }else{
+      cart.forEach((row, i)=>{
+        const p = PRODUCTS[row.key]; const line = p.eur * row.qty; total += line;
+        const li = document.createElement('li');
+        li.className='cart-item';
+        li.innerHTML = `
+          <div><strong>${p.name}</strong><br><small>${fmt(p.eur)} × ${row.qty}</small></div>
+          <div class="qty">
+            <button aria-label="Restar" onclick="decQty(${i})">−</button>
+            <span>${row.qty}</span>
+            <button aria-label="Sumar" onclick="incQty(${i})">+</button>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px">
+            <strong>${fmt(line)}</strong>
+            <button class="btn inline ghost" aria-label="Quitar" onclick="removeItem(${i})">Quitar</button>
+          </div>`;
+        ul.appendChild(li);
+      });
+    }
+    const totalEl = document.getElementById('cart-total');
+    if (totalEl) totalEl.textContent = fmt(total);
+  }
+
+  // Checkout para un solo producto (desde el modal)
+  function checkoutSingle(key){
+    const link = PAYMENT_LINKS[key];
+    if(!link){ alert('Enlace de pago no configurado.'); return; }
+    window.location.href = link;
+  }
+
+  // Checkout general (desde la cesta)
+  async function checkout(){
+    if(cart.length===0){ alert('Tu cesta está vacía.'); return; }
+
+    if (cart.length === 1) {
+      const only = cart[0];
+      const link = PAYMENT_LINKS[only.key];
+      if (!link){ alert('No hay enlace de pago configurado para ese producto.'); return; }
+      if (only.qty > 1) {
+        const ok = confirm('El enlace de Stripe cobra 1 unidad por pago. Puedes repetir el pago para varias unidades.\n\n¿Ir a pagar 1 unidad ahora?');
+        if (!ok) return;
+      }
+      window.location.href = link;
+      return;
+    }
+
+    // Varios productos → mostrar enlaces por separado
+    let msg = 'Paga cada producto por separado ahora:\n';
+    cart.forEach(row=>{
+      const link = PAYMENT_LINKS[row.key];
+      msg += `\n- ${PRODUCTS[row.key].name}: ${link ? link : '(sin enlace)'}`;
+    });
+    alert(msg);
+  }
+
+  // ====== TOASTS + retorno ======
+  function showToast(msg, type='ok'){
+    const t = document.getElementById('toast');
+    document.getElementById('toast-msg').textContent = msg;
+    t.className = 'toast ' + (type || 'ok');
+    t.style.display = 'inline-flex';
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(hideToast, 6000);
+  }
+  function hideToast(){ document.getElementById('toast').style.display='none'; }
+
+  (function handleReturn(){
+    const p = new URLSearchParams(location.search);
+    if (p.get('contact') === 'ok') {
+      showToast('¡Mensaje enviado! Te responderé por email.', 'ok');
+      history.replaceState({}, '', location.pathname);
+    }
+    if (p.has('paid')) {
+      try { cart = []; saveCart(); renderCartList(); } catch(_) {}
+      showToast('¡Pago completado! Gracias por tu compra.', 'ok');
+      history.replaceState({}, '', location.pathname);
+    }
+    if (p.has('cancel')) {
+      showToast('Pago cancelado. Puedes reintentarlo cuando quieras.', 'warn');
+      history.replaceState({}, '', location.pathname);
+    }
+  })();
 </script>
 
 </body>
