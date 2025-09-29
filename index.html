@@ -46,13 +46,7 @@
       "image":"https://gnosticmagic.com/Logo_Gnostic_Negro.png",
       "description":"Método/juego minimal con contenido avanzado protegido.",
       "brand":"GNOSTIC",
-      "offers":{
-        "@type":"Offer",
-        "priceCurrency":"EUR",
-        "price":"40",
-        "availability":"https://schema.org/InStock",
-        "url":"https://gnosticmagic.com/"
-      }
+      "offers":{"@type":"Offer","priceCurrency":"EUR","price":"40","availability":"https://schema.org/InStock","url":"https://gnosticmagic.com/"}
     },
     {
       "@type":"Product",
@@ -60,13 +54,7 @@
       "image":"https://gnosticmagic.com/Logo_Gnostic_Negro.png",
       "description":"Tratado conciso y práctico. Entrega por email tras el pago.",
       "brand":"GNOSTIC",
-      "offers":{
-        "@type":"Offer",
-        "priceCurrency":"EUR",
-        "price":"14",
-        "availability":"https://schema.org/InStock",
-        "url":"https://gnosticmagic.com/"
-      }
+      "offers":{"@type":"Offer","priceCurrency":"EUR","price":"14","availability":"https://schema.org/InStock","url":"https://gnosticmagic.com/"}
     },
     {
       "@type":"Product",
@@ -74,13 +62,7 @@
       "image":"https://gnosticmagic.com/Logo_Gnostic_Negro.png",
       "description":"Vídeo protegido. Acceso con contraseña tras la compra.",
       "brand":"GNOSTIC",
-      "offers":{
-        "@type":"Offer",
-        "priceCurrency":"EUR",
-        "price":"14",
-        "availability":"https://schema.org/InStock",
-        "url":"https://gnosticmagic.com/"
-      }
+      "offers":{"@type":"Offer","priceCurrency":"EUR","price":"14","availability":"https://schema.org/InStock","url":"https://gnosticmagic.com/"}
     }
   ]
 }
@@ -132,7 +114,9 @@
 
   /* Shop */
   .grid-shop{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px;margin-top:32px}
-  .card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:var(--shadow);display:flex;flex-direction:column}
+  .card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:var(--shadow);display:flex;flex-direction:column;cursor:pointer;transition:transform .12s ease, box-shadow .12s ease}
+  .card:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(0,0,0,.08)}
+  .card:focus{outline:3px solid color-mix(in oklab, var(--accent) 40%, white);outline-offset:2px}
   .media{aspect-ratio:4/3;background:#f3f3f5;display:grid;place-items:center;color:#f0f;font-weight:600}
   .content{padding:24px;display:grid;gap:12px;flex-grow:1}
   .price{font-weight:800}
@@ -215,7 +199,7 @@
 
   <div class="grid-shop">
     <!-- Mindprint -->
-    <article class="card">
+    <article class="card" role="button" tabindex="0" data-target="modal-mindprint">
       <div class="media"><img src="thumb-mindprint.jpg" alt="" onerror="this.parentNode.textContent='Imagen Mindprint'"></div>
       <div class="content">
         <span class="pill purple">Mindprint</span>
@@ -223,14 +207,14 @@
         <p><em>Mindprint</em> es la creación de Samuel Varoy inspirada en los principios herméticos. En este caso, el Principio del Mentalismo: <strong>todo es mente</strong>. Más que una rutina, es un concepto mágico en sí mismo. Con la presentación adecuada y el uso preciso de sus elementos, <em>Mindprint</em> lleva al espectador a otros mundos… concretamente, al mundo real.</p>
         <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
           <span class="price">40 €</span>
-          <button class="btn inline" onclick="addToCart('mindprint')">Añadir</button>
-          <button class="btn inline ghost" onclick="openModal('modal-mindprint')">Ver detalles</button>
+          <button class="btn inline js-stop" onclick="addToCart('mindprint')">Añadir</button>
+          <button class="btn inline ghost js-stop" onclick="openModal('modal-mindprint')">Ver detalles</button>
         </div>
       </div>
     </article>
 
     <!-- Doble Lift -->
-    <article class="card">
+    <article class="card" role="button" tabindex="0" data-target="modal-doblelift">
       <div class="media"><img src="thumb-doblelift.jpg" alt="" onerror="this.parentNode.textContent='Imagen Doble Lift'"></div>
       <div class="content">
         <span class="pill">Estudio</span>
@@ -238,14 +222,14 @@
         <p>Una recopilación de formas de ejecutar el <em>doble lift</em>, desde las más sencillas hasta las más elaboradas, cuidando siempre la estética, la limpieza y la funcionalidad. Se revisan dobles ya existentes y se añaden sutilezas y manejos nuevos que amplían las posibilidades de esta técnica tan usada.</p>
         <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
           <span class="price">14 €</span>
-          <button class="btn inline" onclick="addToCart('doblelift')">Añadir</button>
-          <button class="btn inline ghost" onclick="openModal('modal-doblelift')">Ver detalles</button>
+          <button class="btn inline js-stop" onclick="addToCart('doblelift')">Añadir</button>
+          <button class="btn inline ghost js-stop" onclick="openModal('modal-doblelift')">Ver detalles</button>
         </div>
       </div>
     </article>
 
     <!-- Empalme -->
-    <article class="card">
+    <article class="card" role="button" tabindex="0" data-target="modal-empalme">
       <div class="media"><img src="thumb-empalme.jpg" alt="" onerror="this.parentNode.textContent='Thumbnail vídeo Empalme'"></div>
       <div class="content">
         <span class="pill magenta">Vídeo protegido</span>
@@ -253,8 +237,8 @@
         <p>El <em>Estudio del Empalme</em> nace de la idea de Samuel Varoy de lograr que un empalme clásico pueda finalizar en cualquier mano —izquierda o derecha— y además cara arriba o cara abajo, según lo requiera la rutina (reaparecer, cargar o descargar). Incluye <strong>cuatro empalmes originales</strong> de menor a mayor dificultad, más consejos para un manejo limpio y natural. Se comparte también un empalme que Samuel ha usado más de ocho años en escena.</p>
         <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
           <span class="price">14 €</span>
-          <button class="btn inline" onclick="addToCart('empalme')">Añadir</button>
-          <button class="btn inline ghost" onclick="openModal('modal-empalme')">Ver detalles</button>
+          <button class="btn inline js-stop" onclick="addToCart('empalme')">Añadir</button>
+          <button class="btn inline ghost js-stop" onclick="openModal('modal-empalme')">Ver detalles</button>
         </div>
       </div>
     </article>
@@ -266,12 +250,6 @@
   <h2 id="about-title">About</h2>
   <div class="prose">
     <p>En GNOSTIC hemos comprendido que la magia no es algo aislado del mundo. No sucede solo en escenarios o ante amigos y familia: la magia nos acompaña en todo momento. Esta tienda de ilusionismo busca ofrecer tanto herramientas como valores de una magia real —no realista—, una magia que transforma al espectador y al mago en cada representación.</p>
-    <ul>
-      <li>Minimalismo místico — blanco/negro; magenta como umbral.</li>
-      <li>Exactitud — cada palabra y gesto sirven a un propósito.</li>
-      <li>Accesibilidad — contraste alto, tipografía legible.</li>
-      <li>Respeto — contenidos protegidos tras la compra.</li>
-    </ul>
   </div>
 </section>
 
@@ -315,7 +293,7 @@
 <dialog id="modal-mindprint" aria-labelledby="mindprint-title">
   <div class="modal-h">
     <h3 id="mindprint-title" class="modal-title">Mindprint — Detalles</h3>
-    <button class="btn inline ghost" onclick="closeModal('modal-mindprint')">✕</button>
+    <button class="btn inline ghost js-stop" onclick="closeModal('modal-mindprint')">✕</button>
   </div>
   <div class="modal-b">
     <div class="modal-grid">
@@ -326,14 +304,14 @@
       <div>
         <p><em>Mindprint</em> es la creación de Samuel Varoy inspirada en los principios herméticos. En este caso, el Principio del Mentalismo: <strong>todo es mente</strong>. Más que una rutina, es un concepto mágico en sí mismo. Con la presentación adecuada y el uso preciso de sus elementos, <em>Mindprint</em> lleva al espectador a otros mundos… concretamente, al mundo real.</p>
         <div style="display:flex;gap:8px;margin:8px 0 16px">
-          <button class="btn inline" onclick="addToCart('mindprint')">Añadir — 40 €</button>
-          <button class="btn inline ghost" onclick="checkoutSingle('mindprint')">Comprar ahora</button>
+          <button class="btn inline js-stop" onclick="addToCart('mindprint')">Añadir — 40 €</button>
+          <button class="btn inline ghost js-stop" onclick="checkoutSingle('mindprint')">Comprar ahora</button>
         </div>
         <div class="gate">
           <strong>Acceso protegido</strong>
           <p>Introduce la contraseña entregada tras la compra para abrir el material avanzado.</p>
           <input class="input" id="pass-mindprint" type="password" placeholder="Contraseña">
-          <button class="btn inline" onclick="unlockMindprint()">Desbloquear</button>
+          <button class="btn inline js-stop" onclick="unlockMindprint()">Desbloquear</button>
           <div id="err-mindprint" class="error">Contraseña incorrecta.</div>
         </div>
       </div>
@@ -345,7 +323,7 @@
 <dialog id="modal-doblelift" aria-labelledby="doblelift-title">
   <div class="modal-h">
     <h3 id="doblelift-title" class="modal-title">Estudio del Doble Lift — Detalles</h3>
-    <button class="btn inline ghost" onclick="closeModal('modal-doblelift')">✕</button>
+    <button class="btn inline ghost js-stop" onclick="closeModal('modal-doblelift')">✕</button>
   </div>
   <div class="modal-b">
     <div class="modal-grid">
@@ -356,14 +334,14 @@
       <div>
         <p>Una recopilación de formas de ejecutar el <em>doble lift</em>, desde las más sencillas hasta las más elaboradas, cuidando siempre la estética, la limpieza y la funcionalidad. Se revisan dobles ya existentes y se añaden sutilezas y manejos nuevos que amplían las posibilidades de esta técnica tan usada.</p>
         <div style="display:flex;gap:8px;margin:8px 0 16px">
-          <button class="btn inline" onclick="addToCart('doblelift')">Añadir — 14 €</button>
-          <button class="btn inline ghost" onclick="checkoutSingle('doblelift')">Comprar ahora</button>
+          <button class="btn inline js-stop" onclick="addToCart('doblelift')">Añadir — 14 €</button>
+          <button class="btn inline ghost js-stop" onclick="checkoutSingle('doblelift')">Comprar ahora</button>
         </div>
         <div class="gate">
           <strong>Acceso protegido</strong>
           <p>Introduce la contraseña de comprador para ver el anexo.</p>
           <input class="input" id="pass-doblelift" type="password" placeholder="Contraseña">
-          <button class="btn inline" onclick="unlockDobleLift()">Desbloquear</button>
+          <button class="btn inline js-stop" onclick="unlockDobleLift()">Desbloquear</button>
           <div id="err-doblelift" class="error">Contraseña incorrecta.</div>
         </div>
       </div>
@@ -375,7 +353,7 @@
 <dialog id="modal-empalme" aria-labelledby="empalme-title">
   <div class="modal-h">
     <h3 id="empalme-title" class="modal-title">Estudio del Empalme — Detalles</h3>
-    <button class="btn inline ghost" onclick="closeModal('modal-empalme')">✕</button>
+    <button class="btn inline ghost js-stop" onclick="closeModal('modal-empalme')">✕</button>
   </div>
   <div class="modal-b">
     <div class="modal-grid">
@@ -386,14 +364,14 @@
       <div>
         <p>El <em>Estudio del Empalme</em> nace de la idea de Samuel Varoy de lograr que un empalme clásico pueda finalizar en cualquier mano —izquierda o derecha— y además cara arriba o cara abajo, según lo requiera la rutina (reaparecer, cargar o descargar). Incluye <strong>cuatro empalmes originales</strong> de menor a mayor dificultad, más consejos para un manejo limpio y natural. Se comparte también un empalme que Samuel ha usado más de ocho años en escena.</p>
         <div style="display:flex;gap:8px;margin:8px 0 16px">
-          <button class="btn inline" onclick="addToCart('empalme')">Añadir — 14 €</button>
-          <button class="btn inline ghost" onclick="checkoutSingle('empalme')">Comprar ahora</button>
+          <button class="btn inline js-stop" onclick="addToCart('empalme')">Añadir — 14 €</button>
+          <button class="btn inline ghost js-stop" onclick="checkoutSingle('empalme')">Comprar ahora</button>
         </div>
         <div class="gate">
           <strong>Acceso al vídeo</strong>
           <p>Introduce la contraseña para ver el vídeo aquí mismo.</p>
           <input class="input" id="pass-empalme" type="password" placeholder="Contraseña">
-          <button class="btn inline" onclick="unlockEmpalme()">Ver vídeo</button>
+          <button class="btn inline js-stop" onclick="unlockEmpalme()">Ver vídeo</button>
           <div id="err-empalme" class="error">Contraseña incorrecta.</div>
         </div>
       </div>
@@ -405,7 +383,7 @@
 <dialog id="modal-empalme-video" aria-labelledby="empalme-video-title">
   <div class="modal-h">
     <h3 id="empalme-video-title" class="modal-title">Estudio del Empalme — Vídeo</h3>
-    <button class="btn inline ghost" onclick="closeModal('modal-empalme-video')">✕</button>
+    <button class="btn inline ghost js-stop" onclick="closeModal('modal-empalme-video')">✕</button>
   </div>
   <div class="modal-b">
     <video id="empalme-player" controls playsinline preload="metadata"
@@ -421,15 +399,15 @@
 <dialog id="cart-dialog" aria-labelledby="cart-title">
   <div class="modal-h">
     <h3 id="cart-title" class="modal-title">Tu cesta</h3>
-    <button class="btn inline ghost" onclick="closeModal('cart-dialog')">✕</button>
+    <button class="btn inline ghost js-stop" onclick="closeModal('cart-dialog')">✕</button>
   </div>
   <div class="modal-b">
     <ul id="cart-list" class="cart-list"></ul>
     <div class="cart-footer">
       <div class="total">Total: <span id="cart-total">0 €</span></div>
       <div style="display:flex; gap:10px;">
-        <button class="btn ghost" onclick="clearCart()">Vaciar</button>
-        <button class="btn" onclick="checkout()">Pagar</button>
+        <button class="btn ghost js-stop" onclick="clearCart()">Vaciar</button>
+        <button class="btn js-stop" onclick="checkout()">Pagar</button>
       </div>
     </div>
     <p class="lead" style="color:var(--muted);margin-top:8px">Pagos seguros con Stripe.</p>
@@ -474,6 +452,25 @@
 
   function openModal(id){ const d=document.getElementById(id); if(d) d.showModal(); }
   function closeModal(id){ const d=document.getElementById(id); if(d && d.open) d.close(); }
+
+  // ====== CARDS CLICABLES ======
+  document.querySelectorAll('.card').forEach(card=>{
+    const target = card.getAttribute('data-target');
+    if(!target) return;
+    // click en toda la tarjeta
+    card.addEventListener('click', e => {
+      // si se hizo click en un botón/elemento marcado para parar, no abrir por card
+      if (e.target.closest('.js-stop')) return;
+      openModal(target);
+    });
+    // accesibilidad teclado
+    card.addEventListener('keydown', e => {
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        openModal(target);
+      }
+    });
+  });
 
   // ====== GATES (en el mismo modal) ======
   function unlockMindprint(){
