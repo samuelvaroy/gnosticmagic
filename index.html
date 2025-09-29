@@ -5,6 +5,88 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>GNOSTIC — GnosticMagic</title>
 <meta name="description" content="Tienda minimal y mística. Mindprint, Estudio del Doble Lift y Estudio del Empalme." />
+
+<!-- ===== [AÑADIDO] SEO, Social y Datos Estructurados ===== -->
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<!-- Open Graph / Twitter -->
+<meta property="og:title" content="GNOSTIC — Tienda de magia minimal">
+<meta property="og:description" content="Mindprint, Estudio del Doble Lift y Estudio del Empalme. Precisión y estética mínima.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gnosticmagic.com/">
+<meta property="og:image" content="https://gnosticmagic.com/Logo_Gnostic_Negro.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="GNOSTIC — Tienda de magia minimal">
+<meta name="twitter:description" content="Métodos y estudios con enfoque claro y elegante.">
+<meta name="twitter:image" content="https://gnosticmagic.com/Logo_Gnostic_Negro.png">
+
+<!-- JSON-LD: Organización -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Organization",
+  "name":"GNOSTIC",
+  "url":"https://gnosticmagic.com",
+  "logo":"https://gnosticmagic.com/Logo_Gnostic_Negro.png"
+}
+</script>
+
+<!-- JSON-LD: Listado de Productos -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"ItemList",
+  "itemListElement":[
+    {
+      "@type":"Product",
+      "name":"Mindprint",
+      "image":"https://gnosticmagic.com/Logo_Gnostic_Negro.png",
+      "description":"Método/juego minimal con contenido avanzado protegido.",
+      "brand":"GNOSTIC",
+      "offers":{
+        "@type":"Offer",
+        "priceCurrency":"EUR",
+        "price":"40",
+        "availability":"https://schema.org/InStock",
+        "url":"https://gnosticmagic.com/"
+      }
+    },
+    {
+      "@type":"Product",
+      "name":"Estudio del Doble Lift",
+      "image":"https://gnosticmagic.com/Logo_Gnostic_Negro.png",
+      "description":"Tratado conciso y práctico. Entrega por email tras el pago.",
+      "brand":"GNOSTIC",
+      "offers":{
+        "@type":"Offer",
+        "priceCurrency":"EUR",
+        "price":"14",
+        "availability":"https://schema.org/InStock",
+        "url":"https://gnosticmagic.com/"
+      }
+    },
+    {
+      "@type":"Product",
+      "name":"Estudio del Empalme",
+      "image":"https://gnosticmagic.com/Logo_Gnostic_Negro.png",
+      "description":"Vídeo protegido. Acceso con contraseña tras la compra.",
+      "brand":"GNOSTIC",
+      "offers":{
+        "@type":"Offer",
+        "priceCurrency":"EUR",
+        "price":"14",
+        "availability":"https://schema.org/InStock",
+        "url":"https://gnosticmagic.com/"
+      }
+    }
+  ]
+}
+</script>
+<!-- ===== [FIN AÑADIDO] ===== -->
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
@@ -51,7 +133,7 @@
   /* Shop */
   .grid-shop{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px;margin-top:32px}
   .card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:var(--shadow);display:flex;flex-direction:column}
-  .media{aspect-ratio:4/3;background:#f3f3f5;display:grid;place-items:center;color:var(--muted);font-weight:600}
+  .media{aspect-ratio:4/3;background:#f3f3f5;display:grid;place-items:center;color:#f0f;color:#f0f;font-weight:600}
   .content{padding:24px;display:grid;gap:12px;flex-grow:1}
   .price{font-weight:800}
   .pill{display:inline-block;padding:6px 10px;border-radius:999px;font-size:12px;background:#f2f2f3}
