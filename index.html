@@ -417,7 +417,8 @@
 <script>
   // ====== CONFIG ======
   const CONFIG = {
-    mindprintPassword: 'mindprint-pro',
+    mindprintPassword: 'ALLISMIND', // ← contraseña pedida
+    mindprintVideoUrl: 'https://www.youtube.com/watch?v=Mu8SAa7YFHc', // ← abre en pestaña nueva al validar
     dobleliftPassword: 'doble-pro',
     empalmePassword: 'empalme-vid',
     rotator: ['magic','knowledge','love','everything','mind'],
@@ -457,13 +458,10 @@
   document.querySelectorAll('.card').forEach(card=>{
     const target = card.getAttribute('data-target');
     if(!target) return;
-    // click en toda la tarjeta
     card.addEventListener('click', e => {
-      // si se hizo click en un botón/elemento marcado para parar, no abrir por card
       if (e.target.closest('.js-stop')) return;
       openModal(target);
     });
-    // accesibilidad teclado
     card.addEventListener('keydown', e => {
       if(e.key === 'Enter' || e.key === ' '){
         e.preventDefault();
@@ -474,10 +472,32 @@
 
   // ====== GATES (en el mismo modal) ======
   function unlockMindprint(){
-    const ok = document.getElementById('pass-mindprint').value.trim() === CONFIG.mindprintPassword;
-    document.getElementById('err-mindprint').style.display = ok ? 'none' : 'block';
-    if (ok) alert('✅ Acceso Mindprint desbloqueado (aquí iría el material avanzado).');
+    try{
+      const input = document.getElementById('pass-mindprint');
+      const err   = document.getElementById('err-mindprint');
+      const pass  = (input?.value || '').trim();
+
+      const ok = pass === CONFIG.mindprintPassword; // sensible a mayúsculas (ALLISMIND)
+      if(!ok){
+        if(err) err.style.display = 'block';
+        return;
+      }
+
+      if(err) err.style.display = 'none';
+      if (typeof closeModal === 'function') closeModal('modal-mindprint');
+
+      if (CONFIG.mindprintVideoUrl && /^https?:\/\//i.test(CONFIG.mindprintVideoUrl)) {
+        const win = window.open(CONFIG.mindprintVideoUrl, '_blank', 'noopener');
+        if (win) win.focus();
+      } else {
+        alert('No se ha configurado la URL del vídeo de Mindprint.');
+      }
+    }catch(e){
+      console.error('Error en unlockMindprint', e);
+      alert('Ha ocurrido un error al validar la contraseña.');
+    }
   }
+
   function unlockDobleLift(){
     const ok = document.getElementById('pass-doblelift').value.trim() === CONFIG.dobleliftPassword;
     document.getElementById('err-doblelift').style.display = ok ? 'none' : 'block';
