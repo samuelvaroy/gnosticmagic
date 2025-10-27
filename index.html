@@ -54,7 +54,7 @@
       "image":"https://gnosticmagic.com/Logo_Gnostic_Negro.png",
       "description":"Tratado conciso y práctico. Entrega por email tras el pago.",
       "brand":"GNOSTIC",
-      "offers":{"@type":"Offer","priceCurrency":"EUR","price":"14","availability":"https://schema.org/InStock","url":"https://gnosticmagic.com/"}
+      "offers":{"@type":"Offer","priceCurrency":"EUR","price":"14","availability":"https://schema.org/PreOrder","url":"https://gnosticmagic.com/"}
     },
     {
       "@type":"Product",
@@ -62,7 +62,7 @@
       "image":"https://gnosticmagic.com/Logo_Gnostic_Negro.png",
       "description":"Vídeo protegido. Acceso con contraseña tras la compra.",
       "brand":"GNOSTIC",
-      "offers":{"@type":"Offer","priceCurrency":"EUR","price":"14","availability":"https://schema.org/InStock","url":"https://gnosticmagic.com/"}
+      "offers":{"@type":"Offer","priceCurrency":"EUR","price":"14","availability":"https://schema.org/PreOrder","url":"https://gnosticmagic.com/"}
     }
   ]
 }
@@ -76,8 +76,7 @@
 <style>
   :root{
     --bg:#ffffff; --ink:#111; --muted:#515151; --line:#eee;
-    --accent:#ff1593; /* MAGENTA */
-    --accent-ink:#fff;
+    --accent:#ff1593; --accent-ink:#fff;
     --mind:#7d3cff;
     --radius:16px; --shadow:0 10px 30px rgba(0,0,0,.06);
     --max:1200px; --g:24px;
@@ -114,7 +113,7 @@
 
   /* Shop */
   .grid-shop{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px;margin-top:32px}
-  .card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:var(--shadow);display:flex;flex-direction:column;cursor:pointer;transition:transform .12s ease, box-shadow .12s ease}
+  .card{position:relative;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:var(--shadow);display:flex;flex-direction:column;cursor:pointer;transition:transform .12s ease, box-shadow .12s ease}
   .card:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(0,0,0,.08)}
   .card:focus{outline:3px solid color-mix(in oklab, var(--accent) 40%, white);outline-offset:2px}
   .media{aspect-ratio:4/3;background:#f3f3f5;display:grid;place-items:center;color:#f0f;font-weight:600}
@@ -124,13 +123,11 @@
   .pill.magenta{background:color-mix(in oklab,var(--accent) 14%,white);color:#7a0a48}
   .pill.purple{background:color-mix(in oklab,var(--mind) 18%,white);color:#3e1a77}
   .btn{display:inline-block;background:var(--accent);color:#fff;border:none;border-radius:999px;padding:10px 16px;font-weight:700;cursor:pointer;text-align:center}
-  .btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+  .btn.ghost{background:#fff;color:#111;border:1px solid var(--line)}
   .btn.inline{padding:8px 12px;font-weight:700}
 
-  /* About / Contact */
-  .prose{max-width:72ch}
-
-  footer{padding:48px 0;border-top:1px solid var(--line);color:var(--muted)}
+  /* Badge Próximamente */
+  .soon{position:absolute;top:12px;left:12px;background:#111;color:#fff;font-weight:800;padding:6px 10px;border-radius:999px;font-size:12px;letter-spacing:.02em}
 
   /* Dialogs */
   dialog{border:none;border-radius:16px;padding:0;box-shadow:0 20px 60px rgba(0,0,0,.25);width:min(920px,92vw)}
@@ -139,7 +136,8 @@
   .modal-title{margin:0;font-size:22px}
   .modal-b{padding:26px}
   .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-  .thumb{width:100%;aspect-ratio:4/3;background:#f3f3f5;border-radius:12px;display:grid;place-items:center;color:#888}
+  .thumb{width:100%;aspect-ratio:4/3;background:#f3f3f5;border-radius:12px;display:grid;place-items:center;color:#888;overflow:hidden}
+  .thumb img{width:100%;height:100%;object-fit:cover}
   .gate{border:1px dashed var(--line);border-radius:12px;padding:16px}
   .input{padding:12px 14px;border:1px solid var(--line);border-radius:12px;font-size:16px;width:100%}
   .error{display:none;color:#b00020;font-weight:700;margin-top:6px}
@@ -204,7 +202,7 @@
       <div class="content">
         <span class="pill purple">Mindprint</span>
         <h3>Mindprint — método/juego</h3>
-        <p><em>Mindprint</em> es la creación de Samuel Varoy inspirada en los principios herméticos. En este caso, el Principio del Mentalismo: <strong>todo es mente</strong>. Más que una rutina, es un concepto mágico en sí mismo. Con la presentación adecuada y el uso preciso de sus elementos, <em>Mindprint</em> lleva al espectador a otros mundos… concretamente, al mundo real.</p>
+        <p><em>Mindprint</em> es la creación de Samuel Varoy inspirada en los principios herméticos. En este caso, el Principio del Mentalismo: <strong>todo es mente</strong>. Más que una rutina, es un concepto mágico en sí mismo.</p>
         <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
           <span class="price">40 €</span>
           <button class="btn inline js-stop" onclick="addToCart('mindprint')">Añadir</button>
@@ -213,32 +211,34 @@
       </div>
     </article>
 
-    <!-- Doble Lift -->
-    <article class="card" role="button" tabindex="0" data-target="modal-doblelift">
+    <!-- Doble Lift (Próximamente) -->
+    <article class="card" aria-disabled="true">
+      <span class="soon">Próximamente</span>
       <div class="media"><img src="thumb-doblelift.jpg" alt="" onerror="this.parentNode.textContent='Imagen Doble Lift'"></div>
       <div class="content">
         <span class="pill">Estudio</span>
         <h3>Estudio del Doble Lift</h3>
-        <p>Una recopilación de formas de ejecutar el <em>doble lift</em>, desde las más sencillas hasta las más elaboradas, cuidando siempre la estética, la limpieza y la funcionalidad. Se revisan dobles ya existentes y se añaden sutilezas y manejos nuevos que amplían las posibilidades de esta técnica tan usada.</p>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+        <p>Compendio de dobles con manejo limpio y natural.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;opacity:.6">
           <span class="price">14 €</span>
-          <button class="btn inline js-stop" onclick="addToCart('doblelift')">Añadir</button>
-          <button class="btn inline ghost js-stop" onclick="openModal('modal-doblelift')">Ver detalles</button>
+          <button class="btn inline" disabled aria-disabled="true" title="Próximamente">Añadir</button>
+          <button class="btn inline ghost" disabled aria-disabled="true" title="Próximamente">Ver detalles</button>
         </div>
       </div>
     </article>
 
-    <!-- Empalme -->
-    <article class="card" role="button" tabindex="0" data-target="modal-empalme">
+    <!-- Empalme (Próximamente) -->
+    <article class="card" aria-disabled="true">
+      <span class="soon">Próximamente</span>
       <div class="media"><img src="thumb-empalme.jpg" alt="" onerror="this.parentNode.textContent='Thumbnail vídeo Empalme'"></div>
       <div class="content">
         <span class="pill magenta">Vídeo protegido</span>
         <h3>Estudio del Empalme</h3>
-        <p>El <em>Estudio del Empalme</em> nace de la idea de Samuel Varoy de lograr que un empalme clásico pueda finalizar en cualquier mano —izquierda o derecha— y además cara arriba o cara abajo, según lo requiera la rutina (reaparecer, cargar o descargar). Incluye <strong>cuatro empalmes originales</strong> de menor a mayor dificultad, más consejos para un manejo limpio y natural. Se comparte también un empalme que Samuel ha usado más de ocho años en escena.</p>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+        <p>Cuatro empalmes originales + consejos de presentación.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;opacity:.6">
           <span class="price">14 €</span>
-          <button class="btn inline js-stop" onclick="addToCart('empalme')">Añadir</button>
-          <button class="btn inline ghost js-stop" onclick="openModal('modal-empalme')">Ver detalles</button>
+          <button class="btn inline" disabled aria-disabled="true" title="Próximamente">Añadir</button>
+          <button class="btn inline ghost" disabled aria-disabled="true" title="Próximamente">Ver detalles</button>
         </div>
       </div>
     </article>
@@ -249,7 +249,7 @@
 <section id="about" class="wrap section" aria-labelledby="about-title">
   <h2 id="about-title">About</h2>
   <div class="prose">
-    <p>En GNOSTIC hemos comprendido que la magia no es algo aislado del mundo. No sucede solo en escenarios o ante amigos y familia: la magia nos acompaña en todo momento. Esta tienda de ilusionismo busca ofrecer tanto herramientas como valores de una magia real —no realista—, una magia que transforma al espectador y al mago en cada representación.</p>
+    <p>En GNOSTIC hemos comprendido que la magia no es algo aislado del mundo. No sucede solo en escenarios o ante amigos y familia: la magia nos acompaña en todo momento.</p>
   </div>
 </section>
 
@@ -298,19 +298,21 @@
   <div class="modal-b">
     <div class="modal-grid">
       <div>
-        <div class="thumb"><img src="mindprint-1.jpg" alt="" onerror="this.parentNode.textContent='Foto Mindprint 1'"></div>
-        <div class="thumb"><img src="mindprint-2.jpg" alt="" onerror="this.parentNode.textContent='Foto Mindprint 2'"></div>
+        <!-- Galería Mindprint (3 fotos) — guarda tus imágenes con estos nombres -->
+        <div class="thumb"><img src="mindprint-hero.jpg" alt="Mindprint - cartas y manos" onerror="this.parentNode.textContent='Foto Mindprint 1'"></div>
+        <div class="thumb"><img src="mindprint-pack.jpg" alt="Pack Mindprint" onerror="this.parentNode.textContent='Foto Mindprint 2'"></div>
+        <div class="thumb"><img src="mindprint-samuel.jpg" alt="Samuel con Mindprint" onerror="this.parentNode.textContent='Foto Mindprint 3'"></div>
       </div>
       <div>
-        <p><em>Mindprint</em> es la creación de Samuel Varoy inspirada en los principios herméticos. En este caso, el Principio del Mentalismo: <strong>todo es mente</strong>. Más que una rutina, es un concepto mágico en sí mismo. Con la presentación adecuada y el uso preciso de sus elementos, <em>Mindprint</em> lleva al espectador a otros mundos… concretamente, al mundo real.</p>
+        <p><em>Mindprint</em> es la creación de Samuel Varoy inspirada en los principios herméticos. En este caso, el Principio del Mentalismo: <strong>todo es mente</strong>. Más que una rutina, es un concepto mágico en sí mismo.</p>
         <div style="display:flex;gap:8px;margin:8px 0 16px">
           <button class="btn inline js-stop" onclick="addToCart('mindprint')">Añadir — 40 €</button>
           <button class="btn inline ghost js-stop" onclick="checkoutSingle('mindprint')">Comprar ahora</button>
         </div>
         <div class="gate">
           <strong>Acceso protegido</strong>
-          <p>Introduce la contraseña entregada tras la compra para abrir el material avanzado.</p>
-          <input class="input" id="pass-mindprint" type="password" placeholder="Contraseña">
+          <p>Introduce la contraseña entregada tras la compra para abrir el vídeo privado.</p>
+          <input class="input" id="pass-mindprint" type="password" placeholder="Contraseña (mayúsculas)">
           <button class="btn inline js-stop" onclick="unlockMindprint()">Desbloquear</button>
           <div id="err-mindprint" class="error">Contraseña incorrecta.</div>
         </div>
@@ -319,67 +321,7 @@
   </div>
 </dialog>
 
-<!-- Doble Lift -->
-<dialog id="modal-doblelift" aria-labelledby="doblelift-title">
-  <div class="modal-h">
-    <h3 id="doblelift-title" class="modal-title">Estudio del Doble Lift — Detalles</h3>
-    <button class="btn inline ghost js-stop" onclick="closeModal('modal-doblelift')">✕</button>
-  </div>
-  <div class="modal-b">
-    <div class="modal-grid">
-      <div>
-        <div class="thumb"><img src="doblelift-1.jpg" alt="" onerror="this.parentNode.textContent='Foto Doble Lift 1'"></div>
-        <div class="thumb"><img src="doblelift-2.jpg" alt="" onerror="this.parentNode.textContent='Foto Doble Lift 2'"></div>
-      </div>
-      <div>
-        <p>Una recopilación de formas de ejecutar el <em>doble lift</em>, desde las más sencillas hasta las más elaboradas, cuidando siempre la estética, la limpieza y la funcionalidad. Se revisan dobles ya existentes y se añaden sutilezas y manejos nuevos que amplían las posibilidades de esta técnica tan usada.</p>
-        <div style="display:flex;gap:8px;margin:8px 0 16px">
-          <button class="btn inline js-stop" onclick="addToCart('doblelift')">Añadir — 14 €</button>
-          <button class="btn inline ghost js-stop" onclick="checkoutSingle('doblelift')">Comprar ahora</button>
-        </div>
-        <div class="gate">
-          <strong>Acceso protegido</strong>
-          <p>Introduce la contraseña de comprador para ver el anexo.</p>
-          <input class="input" id="pass-doblelift" type="password" placeholder="Contraseña">
-          <button class="btn inline js-stop" onclick="unlockDobleLift()">Desbloquear</button>
-          <div id="err-doblelift" class="error">Contraseña incorrecta.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</dialog>
-
-<!-- Empalme -->
-<dialog id="modal-empalme" aria-labelledby="empalme-title">
-  <div class="modal-h">
-    <h3 id="empalme-title" class="modal-title">Estudio del Empalme — Detalles</h3>
-    <button class="btn inline ghost js-stop" onclick="closeModal('modal-empalme')">✕</button>
-  </div>
-  <div class="modal-b">
-    <div class="modal-grid">
-      <div>
-        <div class="thumb"><img src="empalme-1.jpg" alt="" onerror="this.parentNode.textContent='Foto Empalme 1'"></div>
-        <div class="thumb"><img src="empalme-2.jpg" alt="" onerror="this.parentNode.textContent='Foto Empalme 2'"></div>
-      </div>
-      <div>
-        <p>El <em>Estudio del Empalme</em> nace de la idea de Samuel Varoy de lograr que un empalme clásico pueda finalizar en cualquier mano —izquierda o derecha— y además cara arriba o cara abajo, según lo requiera la rutina (reaparecer, cargar o descargar). Incluye <strong>cuatro empalmes originales</strong> de menor a mayor dificultad, más consejos para un manejo limpio y natural. Se comparte también un empalme que Samuel ha usado más de ocho años en escena.</p>
-        <div style="display:flex;gap:8px;margin:8px 0 16px">
-          <button class="btn inline js-stop" onclick="addToCart('empalme')">Añadir — 14 €</button>
-          <button class="btn inline ghost js-stop" onclick="checkoutSingle('empalme')">Comprar ahora</button>
-        </div>
-        <div class="gate">
-          <strong>Acceso al vídeo</strong>
-          <p>Introduce la contraseña para ver el vídeo aquí mismo.</p>
-          <input class="input" id="pass-empalme" type="password" placeholder="Contraseña">
-          <button class="btn inline js-stop" onclick="unlockEmpalme()">Ver vídeo</button>
-          <div id="err-empalme" class="error">Contraseña incorrecta.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</dialog>
-
-<!-- Vídeo Empalme -->
+<!-- Vídeo Empalme (sigue como demo local para más adelante) -->
 <dialog id="modal-empalme-video" aria-labelledby="empalme-video-title">
   <div class="modal-h">
     <h3 id="empalme-video-title" class="modal-title">Estudio del Empalme — Vídeo</h3>
@@ -417,10 +359,8 @@
 <script>
   // ====== CONFIG ======
   const CONFIG = {
-    mindprintPassword: 'ALLISMIND', // ← contraseña pedida
-    mindprintVideoUrl: 'https://www.youtube.com/watch?v=Mu8SAa7YFHc', // ← abre en pestaña nueva al validar
-    dobleliftPassword: 'doble-pro',
-    empalmePassword: 'empalme-vid',
+    mindprintPassword: 'ALLISMIND', // contraseña exacta (sensible a mayúsculas)
+    mindprintVideoUrl: 'https://www.youtube.com/watch?v=Mu8SAa7YFHc', // abre en pestaña nueva
     rotator: ['magic','knowledge','love','everything','mind'],
     rotMs: 2600
   };
@@ -428,22 +368,22 @@
   // ====== PRODUCTOS + LINKS ======
   const PRODUCTS = {
     mindprint:  { name:'Mindprint',               eur:40 },
+    // Los próximos no se pueden comprar aún
     doblelift:  { name:'Estudio del Doble Lift',  eur:14 },
     empalme:    { name:'Estudio del Empalme',     eur:14 }
   };
 
   // Stripe Payment Links (reales)
   const PAYMENT_LINKS = {
-    mindprint: 'https://buy.stripe.com/8x2dR2cDa9qZc9d7rsd3i02',
-    doblelift: 'https://buy.stripe.com/6oU8wI9qYfPn4GLdPQd3i00',
-    empalme:   'https://buy.stripe.com/9B628kbz69qZa15fXYd3i01'
+    mindprint: 'https://buy.stripe.com/8x2dR2cDa9qZc9d7rsd3i02'
+    // Cuando estén listos, añade aquí los demás
   };
 
   // ====== UTIL ======
   const fmt = n => new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n);
   document.getElementById('year') && (document.getElementById('year').textContent = new Date().getFullYear());
 
-  // Rotador (palabra magenta + "is magic" negro)
+  // Rotador
   (function(){
     const el = document.getElementById('rot'), P = CONFIG.rotator;
     if (!el) return;
@@ -454,80 +394,53 @@
   function openModal(id){ const d=document.getElementById(id); if(d) d.showModal(); }
   function closeModal(id){ const d=document.getElementById(id); if(d && d.open) d.close(); }
 
-  // ====== CARDS CLICABLES ======
-  document.querySelectorAll('.card').forEach(card=>{
+  // ====== CARDS CLICABLES (sólo las que tienen data-target) ======
+  document.querySelectorAll('.card[data-target]').forEach(card=>{
     const target = card.getAttribute('data-target');
-    if(!target) return;
     card.addEventListener('click', e => {
       if (e.target.closest('.js-stop')) return;
       openModal(target);
     });
     card.addEventListener('keydown', e => {
-      if(e.key === 'Enter' || e.key === ' '){
-        e.preventDefault();
-        openModal(target);
-      }
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openModal(target); }
     });
   });
 
-  // ====== GATES (en el mismo modal) ======
+  // ====== GATES ======
   function unlockMindprint(){
-    try{
-      const input = document.getElementById('pass-mindprint');
-      const err   = document.getElementById('err-mindprint');
-      const pass  = (input?.value || '').trim();
-
-      const ok = pass === CONFIG.mindprintPassword; // sensible a mayúsculas (ALLISMIND)
-      if(!ok){
-        if(err) err.style.display = 'block';
-        return;
-      }
-
-      if(err) err.style.display = 'none';
-      if (typeof closeModal === 'function') closeModal('modal-mindprint');
-
-      if (CONFIG.mindprintVideoUrl && /^https?:\/\//i.test(CONFIG.mindprintVideoUrl)) {
-        const win = window.open(CONFIG.mindprintVideoUrl, '_blank', 'noopener');
-        if (win) win.focus();
-      } else {
-        alert('No se ha configurado la URL del vídeo de Mindprint.');
-      }
-    }catch(e){
-      console.error('Error en unlockMindprint', e);
-      alert('Ha ocurrido un error al validar la contraseña.');
+    const input = document.getElementById('pass-mindprint');
+    const err   = document.getElementById('err-mindprint');
+    const pass  = (input?.value || '').trim();
+    const ok = pass === CONFIG.mindprintPassword;
+    if(!ok){ if(err) err.style.display = 'block'; return; }
+    if(err) err.style.display = 'none';
+    closeModal('modal-mindprint');
+    if (CONFIG.mindprintVideoUrl && /^https?:\/\//i.test(CONFIG.mindprintVideoUrl)) {
+      const win = window.open(CONFIG.mindprintVideoUrl, '_blank', 'noopener');
+      win && win.focus();
+    } else {
+      alert('No se ha configurado la URL del vídeo de Mindprint.');
     }
-  }
-
-  function unlockDobleLift(){
-    const ok = document.getElementById('pass-doblelift').value.trim() === CONFIG.dobleliftPassword;
-    document.getElementById('err-doblelift').style.display = ok ? 'none' : 'block';
-    if (ok) alert('✅ Anexo Doble Lift desbloqueado (enlaza o muestra aquí el material).');
-  }
-  function unlockEmpalme(){
-    const ok = document.getElementById('pass-empalme').value.trim() === CONFIG.empalmePassword;
-    document.getElementById('err-empalme').style.display = ok ? 'none' : 'block';
-    if (ok){ closeModal('modal-empalme'); openModal('modal-empalme-video'); }
   }
 
   // ====== CARRITO ======
   const CART_KEY = 'gnosticCart';
   let cart = loadCart(); renderCartIcon();
 
-  function loadCart(){
-    try{ return JSON.parse(localStorage.getItem(CART_KEY)) || []; }catch(_){ return []; }
-  }
+  function loadCart(){ try{ return JSON.parse(localStorage.getItem(CART_KEY)) || []; }catch(_){ return []; } }
   function saveCart(){ localStorage.setItem(CART_KEY, JSON.stringify(cart)); renderCartIcon(); }
 
   function renderCartIcon(){
     const n = cart.reduce((a,x)=>a+x.qty,0);
     const b = document.getElementById('cart-count'); if(!b) return;
-    if(n>0){ b.hidden=false; b.textContent=n; } else { b.hidden=true; }
+    b.hidden = n<=0; if(n>0) b.textContent=n;
   }
 
   function openCart(){ renderCartList(); openModal('cart-dialog'); }
   function clearCart(){ cart = []; saveCart(); renderCartList(); }
 
   function addToCart(key){
+    if(key!=='mindprint'){ alert('Este artículo aún no está disponible.'); return; }
     const p = PRODUCTS[key]; if(!p){ alert('Producto no disponible.'); return; }
     const f = cart.find(x=>x.key===key);
     if(f) f.qty += 1; else cart.push({ key, qty:1 });
@@ -568,36 +481,28 @@
     if (totalEl) totalEl.textContent = fmt(total);
   }
 
-  // Checkout para un solo producto (desde el modal)
+  // Checkout para un solo producto
   function checkoutSingle(key){
     const link = PAYMENT_LINKS[key];
     if(!link){ alert('Enlace de pago no configurado.'); return; }
     window.location.href = link;
   }
 
-  // Checkout general (desde la cesta)
+  // Checkout general
   async function checkout(){
     if(cart.length===0){ alert('Tu cesta está vacía.'); return; }
-
     if (cart.length === 1) {
       const only = cart[0];
+      if(only.key!=='mindprint'){ alert('Este artículo aún no está disponible.'); return; }
       const link = PAYMENT_LINKS[only.key];
       if (!link){ alert('No hay enlace de pago configurado para ese producto.'); return; }
       if (only.qty > 1) {
         const ok = confirm('El enlace de Stripe cobra 1 unidad por pago. Puedes repetir el pago para varias unidades.\n\n¿Ir a pagar 1 unidad ahora?');
         if (!ok) return;
       }
-      window.location.href = link;
-      return;
+      window.location.href = link; return;
     }
-
-    // Varios productos → mostrar enlaces por separado
-    let msg = 'Paga cada producto por separado ahora:\n';
-    cart.forEach(row=>{
-      const link = PAYMENT_LINKS[row.key];
-      msg += `\n- ${PRODUCTS[row.key].name}: ${link ? link : '(sin enlace)'}`;
-    });
-    alert(msg);
+    alert('Por ahora sólo está disponible Mindprint.');
   }
 
   // ====== TOASTS + retorno ======
