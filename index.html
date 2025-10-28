@@ -206,13 +206,17 @@
   <div class="grid-shop">
     <!-- Mindprint -->
    <article class="card" role="button" tabindex="0" data-target="modal-mindprint">
-  <div class="media">
-    <img src="mindprint-hero.jpg" alt="Mindprint — Samuel Varoy" style="width:100%;height:100%;object-fit:cover;border-bottom:1px solid #eee">
-  </div>
+ <div class="media">
+  <img src="mindprint-hero.jpg" alt="Mindprint — Samuel Varoy" style="width:100%;height:auto;object-fit:contain;display:block;margin:auto;border-bottom:1px solid #eee;background:#fff">
+</div>
 
         <span class="pill purple">Mindprint</span>
         <h3>Mindprint — método/juego</h3>
-        <p><em>Mindprint</em> es la creación de Samuel Varoy inspirada en los principios herméticos. En este caso, el Principio del Mentalismo: <strong>todo es mente</strong>. Más que una rutina, es un concepto mágico en sí mismo.</p>
+        <p><em>Mindprint</em>Mindprint es una creación de Samuel Varoy basada en el Principio Hermético del Mentalismo: todo es mente.
+
+No es sólo una rutina, sino un sistema completo. Incluye tres gimmicks, rutinas cuidadosamente construidas, teoría aplicada y el proceso selectivo que condujo al diseño final.
+
+Cada elemento ha sido elegido con precisión para ofrecer una experiencia mágica profunda, conceptual y elegante.</p>
         <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
           <span class="price">40 €</span>
           <button class="btn inline js-stop" onclick="addToCart('mindprint')">Añadir</button>
@@ -322,7 +326,7 @@
         <div class="gate">
           <strong>Acceso protegido</strong>
           <p>Introduce la contraseña entregada tras la compra para abrir el vídeo privado.</p>
-          <input class="input" id="pass-mindprint" type="password" placeholder="Contraseña (mayúsculas)">
+          <input class="input" id="pass-mindprint" type="password" placeholder="Contraseña ">
           <button class="btn inline js-stop" onclick="unlockMindprint()">Desbloquear</button>
           <div id="err-mindprint" class="error">Contraseña incorrecta.</div>
         </div>
