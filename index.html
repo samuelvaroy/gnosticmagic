@@ -535,6 +535,153 @@
     }
   })();
 </script>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GNOSTIC — Magia Minimal</title>
+  <link rel="icon" href="favicon.ico">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #fff;
+      color: #111;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      border-bottom: 1px solid #eee;
+    }
+    header img {
+      height: 64px;
+    }
+    nav a {
+      margin-left: 20px;
+      color: #111;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 20px 60px;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+    .rotator {
+      font-size: 1.5rem;
+    }
+    .rotator .word {
+      color: #ff1593;
+      text-transform: lowercase;
+    }
+    .rotator .fixed {
+      color: #111;
+    }
+    .shop {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 60px 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .card {
+      border: 1px solid #eee;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+    }
+    .card img {
+      width: 100%;
+      display: block;
+    }
+    .card-content {
+      padding: 20px;
+    }
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.3rem;
+    }
+    footer {
+      padding: 40px;
+      text-align: center;
+      border-top: 1px solid #eee;
+      color: #666;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="Logo_Gnostic_Negro.png" alt="Gnostic Logo">
+    <nav>
+      <a href="#shop">Shop</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main class="hero">
+    <h1>GNOSTIC</h1>
+    <div class="rotator"><span class="word" id="rot">magic</span> <span class="fixed">is magic</span></div>
+  </main>
+
+  <section class="shop" id="shop">
+    <a class="card" href="#">
+      <img src="mindprint-hero.jpg" alt="Mindprint">
+      <div class="card-content">
+        <h2>Mindprint — 40€</h2>
+        <p>Una experiencia basada en el principio hermético del mentalismo: todo es mente.</p>
+      </div>
+    </a>
+    <a class="card" href="#">
+      <img src="thumb-doblelift.jpg" alt="Estudio del Doble Lift">
+      <div class="card-content">
+        <h2>Estudio del Doble Lift — Próximamente</h2>
+        <p>Recopilación de dobles, nuevos manejos, limpieza y estética.</p>
+      </div>
+    </a>
+    <a class="card" href="#">
+      <img src="thumb-empalme.jpg" alt="Estudio del Empalme">
+      <div class="card-content">
+        <h2>Estudio del Empalme — Próximamente</h2>
+        <p>Cuatro empalmes originales y consejos para mayor naturalidad.</p>
+      </div>
+    </a>
+  </section>
+
+  <footer>
+    &copy; <span id="year"></span> GNOSTIC. Todos los derechos reservados.
+  </footer>
+
+  <script>
+    const rotWords = ['magic','knowledge','love','everything','mind'];
+    let i = 0;
+    setInterval(() => {
+      i = (i + 1) % rotWords.length;
+      document.getElementById('rot').textContent = rotWords[i];
+    }, 2600);
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  
+</body>
+</html>
 
 </body>
 </html>
